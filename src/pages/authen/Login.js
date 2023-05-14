@@ -50,13 +50,20 @@ const Login = () => {
     try {
       const login = await authService.login(account);
       if (login.data) {
+        // check role
+        var role = localStorage.getItem("Roles")
         console.log("Login data: ", login.data)
-        localStorage.setItem("UserId", login.data.id)
-        localStorage.setItem("AccessToken", login.data.accessToken)
-        localStorage.setItem("RefreshToken", login.data.refreshToken)
-        localStorage.setItem("Name", login.data.name)
-        localStorage.setItem("Roles", login.data.roles)
-        navigate("/")
+        if (role.includes("Admin")) {
+          localStorage.setItem("UserId", login.data.id)
+          localStorage.setItem("AccessToken", login.data.accessToken)
+          localStorage.setItem("RefreshToken", login.data.refreshToken)
+          localStorage.setItem("Name", login.data.name)
+          localStorage.setItem("Roles", login.data.roles)
+          navigate("/")
+        } else {
+          localStorage.clear()
+          navigate("/login")
+        }
       } else {
         NotificationManager.error("Đăng nhập không thành công", "Tên đăng nhập hoặc mật khẩu không đúng!", 2000)
         setNotifyText('Tên đăng nhập hoặc mật khẩu không đúng!')
