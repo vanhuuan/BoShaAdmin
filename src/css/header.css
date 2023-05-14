@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Irish+Grover&display=swap');
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 1px #D9D9D9;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.brand {
+    color: #89D5C9;
+    font-family: 'Irish Grover';
+    font-size: xx-large;
+}
+
+li,
+a,
+button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.nav__links {
+    list-style: none;
+}
+
+.nav__links li {
+
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav__links li a {
+    transition: all 0.3s ease 0s;
+
+}
+
+.nav__links li a:hover {
+    color: #0088a9;
+}
+
+button {
+    padding: 9px 25px;
+    background-color: rgba(0, 136, 169, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.header__toolbar-hover {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    width: 40%;
+    left: 25%;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px rgba(136, 136, 136, 0.2);
+}
+
+.header__toolbar-category-list-item {
+    width: 25%;
+    font-size: 14px;    
+    text-align: left;
+    padding: 0.5em 1em;
+}
+
+.header__toolbar-category-list-item:hover {
+    background-color: rgba(204, 204, 204, 0.3);
+}
+
+#id:hover ~ #categories .header__toolbar-hover{
+    display: block;
+}
+
+.header__toolbar-search {
+    position: relative;
+    flex: 1;
+    height: 40px;
+    background-color: white;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    margin-right: 4em;
+}
+
+.header__toolbar-search-input-wrap {
+    flex: 1;
+    height: 100%;
+    position: relative;
+}
+
+.header__toolbar-search-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    color: #ccc;
+    padding: 0 16px;
+    border-radius: 2px;
+}
+
+.header__toolbar-search-btn {
+    font-size: 1.4rem;
+    background-color: rgb(137,213,201);
+    border: none;
+    outline: none;
+    width: 50px;
+    height: 34px;
+    border-radius: 2px;
+    margin-right: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.header__toolbar-search-btn:hover {
+    background-color: rgb(104, 190, 177);
+}
+
+.header__toolbar-search-btn-icon {
+    font-size: 1.4rem;
+    color: white;
+}
+
+.header__toolbar-search-history {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    width: calc(100%);
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0 1px 5px #e0e0e0;
+    overflow: hidden;
+    display: block;
+    z-index: 2;
+}
+
+.header__toolbar-search-history-list {
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.header__toolbar-search-history-item {
+   padding: 0.25em 0.5em;
+}
+
+.header__toolbar-search-history-item:hover {
+    background-color: rgb(237, 244, 241);
+}
+
+.header__toolbar-search-history-item a {
+    display: flex;
+}
+
+.header__toolbar-search-history-item img {
+    display: inline-block;
+    min-width: 40px;
+    max-width: 40px;
+    aspect-ratio: 10/16;
+    object-fit: contain;
+    border: none;
+}
+
+.header__toolbar-search-item-info {
+    display: inline-block;
+    color: black;
+    margin-left: 4px;
+}
+
+.header__toolbar-search-item-name {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.header__toolbar-search-item-chapter {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+@media only screen and (max-width: 600px)  {
+    .header__toolbar-search {
+        margin-right: 1em;
+        background-color: transparent;
+    }
+
+    .header__toolbar-search-input-wrap {
+        display: none;
+    }
+}
