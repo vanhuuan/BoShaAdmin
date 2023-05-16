@@ -1,5 +1,5 @@
 import api from "./api"; 
-const baseURL = "https://boshaapi.site";
+const baseURL = "https://boshaadmin.site";
 export const authService = {
     login: async (data) => {
         return await api.post(baseURL+'/Authen/SignIn', data)
