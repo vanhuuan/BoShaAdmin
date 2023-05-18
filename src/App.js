@@ -12,6 +12,8 @@ import {
 } from "react-router-dom";
 import React from "react";
 import PageNotFound from './pages/NotFound';
+import UserInfo from './pages/users/UserInfo';
+import EditUser from './pages/users/EditUser';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/logIn" element={<><Header /><Login /></>}></Route>
           <Route path="/forgotPassword" element={<ForgotPassword />}></Route>
           <Route path="/changePass" element={<ChangePassword />}></Route>
+          <Route path="/user/userInfo" element={<><Header /><UserInfo /></>}></Route>
+          <Route path="/user/userEdit" element={<><Header /><EditUser /></>}></Route>
           <Route path='*' element={<><Header /><PageNotFound /></>} />
         </Routes>
       </BrowserRouter>
