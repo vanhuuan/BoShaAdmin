@@ -11,8 +11,10 @@ function DashBoard() {
     const c = {
         series: [{
             name: `Tháng`,
-            data: revenueList
-        },],
+            data: revenueList,
+            type: 'line',
+        }
+        ],
         options: {
             dataLabels: {
                 enabled: false
@@ -20,6 +22,7 @@ function DashBoard() {
             stroke: {
                 show: true,
                 width: 1,
+                curve: 'smooth',
             },
             markers: {
                 size: 5,
@@ -67,15 +70,15 @@ function DashBoard() {
     useEffect(() => {
         statisticServce.getStatisticYear(2023, "").then((rs) => {
             console.log(rs.data)
-            if(rs.data){
+            if (rs.data) {
                 rs.data.forEach(element => {
-                    setRevenueList(old=> [...old, element.value]);
+                    setRevenueList(old => [...old, element.value]);
                 });
-                
+
             }
             setIsLoading(false)
         })
-    } ,[])
+    }, [])
 
     return (
         <Box display={'flex'}
