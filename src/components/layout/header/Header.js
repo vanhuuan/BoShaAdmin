@@ -21,20 +21,14 @@ import { Grid } from "@mui/material";
 import { useEffect } from 'react';
 import { firebaseService } from '../../../services/firebase.services';
 
-const settings = ['Tài khoản','Đăng xuất'];
+const settings = ['Tài khoản', 'Đăng xuất'];
 
 function Header() {
     let navigate = useNavigate()
     let isLogin = false;
     const userName = localStorage.getItem("Name")
     const [ava, setAva] = useState("")
-    const [isHover, setIsHover] = useState(true)
-    const [isLoadingCate, setIsLoadingCate] = useState(true)
     const [isLoadingAva, setIsLoadingAva] = useState(true)
-    const [isLoading, setIsLoading] = useState(true)
-    const [searchTerm, setSearchTerm] = useState('')
-    const [categories, setCategories] = React.useState([])
-    const [data, setData] = useState([])
 
 
     if (userName) {
@@ -53,15 +47,8 @@ function Header() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
     };
 
     const handleCloseUserMenu = () => {
@@ -89,104 +76,97 @@ function Header() {
         if (localStorage.getItem("UserId")) {
             setIsLoadingAva(true);
             firebaseService.getAva(localStorage.getItem("UserId"), setAvaImg)
-        }else{
+        } else {
             setIsLoadingAva(false)
         }
     }, [])
 
     return (
-        <>
-            <AppBar position="static" sx={{ backgroundColor: "#89D5C9" }}>
-                <Container maxWidth="xl" >
-                    <Toolbar disableGutters>
-                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} onClick={() => { navigate("/") }} />
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="/"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            BOSHA-ADMIN
-                        </Typography>
+        <AppBar position="fix" sx={{ backgroundColor: "#89D5C9",  zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+            <Container maxWidth="xl" >
+                <Toolbar disableGutters sx={{ justifyContent: "space-between"}}>
+                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} onClick={() => { navigate("/") }} />
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        href="/"
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        BOSHA-ADMIN
+                    </Typography>
 
-                        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                        <Typography
-                            variant="h5"
-                            noWrap
-                            component="a"
-                            href="/"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'flex', md: 'none' },
-                                flexGrow: 1,
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            BOSHA-ADMIN
-                        </Typography>
+                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        component="a"
+                        href="/"
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'flex', md: 'none' },
+                            flexGrow: 1,
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        BOSHA-ADMIN
+                    </Typography>
 
-                        {isLogin ?
-                            <Box sx={{ flexGrow: 0 }}>
-                                <Tooltip title="Mở trang của bạn">
-                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        {isLoadingAva === false ?
-                                            <Avatar alt={userName} src={ava} />
-                                            : <></>}
-                                    </IconButton>
-                                </Tooltip>
-                                <Menu
-                                    sx={{ mt: '45px' }}
-                                    id="menu-appbar"
-                                    anchorEl={anchorElUser}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={Boolean(anchorElUser)}
-                                    onClose={handleCloseUserMenu}
-                                >
-                                    {settings.map((setting) => (
-                                        <MenuItem key={setting} onClick={(event) => handleAvaMenuClick(event, setting)}>
-                                            <Typography textAlign="center">{setting}</Typography>
-                                        </MenuItem>
-                                    ))}
-                                </Menu>
-                            </Box>
-                            :
-                            <Box sx={{ flexGrow: 0 }}>
-                                <Button sx={{ my: 2, color: 'white', display: 'block', fontFamily: 'monospace', fontSize: 20 }}
-                                    onClick={(event) => SignIn(event)}>
-                                    Đăng nhập
-                                </Button>
-                            </Box>
-                        }
-                    </Toolbar>
-                    {isLoadingCate === false ? <div className='header__toolbar-hover' hidden={isHover} style={{ zIndex: 1 }} onMouseLeave={() => { setIsHover(!isHover); }}>
-                        {categories.map((cate) => (
-                            <div className='header__toolbar-category-list-item' onClick={(e) => { navigate(`/book/search/true?categories=${cate.id}`) }}>{cate.name}</div>
-                        ))}
-                    </div> : <></>}
-                </Container>
-            </AppBar>
-        </>
+                    {isLogin ?
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Tooltip title="Mở trang của bạn">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    {isLoadingAva === false ?
+                                        <Avatar alt={userName} src={ava} />
+                                        : <></>}
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                {settings.map((setting) => (
+                                    <MenuItem key={setting} onClick={(event) => handleAvaMenuClick(event, setting)}>
+                                        <Typography textAlign="center">{setting}</Typography>
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
+                        :
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Button sx={{ my: 2, color: 'white', display: 'block', fontFamily: 'monospace', fontSize: 20 }}
+                                onClick={(event) => SignIn(event)}>
+                                Đăng nhập
+                            </Button>
+                        </Box>
+                    }
+                </Toolbar>
+            </Container>
+        </AppBar>
     );
 }
 

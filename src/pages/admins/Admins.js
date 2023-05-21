@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { Box, InputAdornment, Typography } from '@mui/material';
+import { Box, Button, InputAdornment, Stack, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React from 'react'
 import { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
+import theme from '../../theme';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -17,90 +17,53 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import Grid from '@mui/material/Grid';
-import { Check, CheckBox, CheckBoxOutlineBlank, Label, Unarchive } from '@mui/icons-material';
-import { userService } from "../../services/userServices";
+import { Label } from '@mui/icons-material';
+import { userService } from '../../services/userServices';
+import { adminServices } from '../../services/admin.services';
 
 const blue = '#89D5C9'
 const orange = '#FF8357'
 
-const Users = () => {
-    const token = localStorage.getItem("AccessToken")
-    const navigate = useNavigate()
-
-    const onUserOrderClick = (e, row) => {
+const Admins = () => {
+    const onRemoveAdminClick = (e, row) => {
         e.stopPropagation();
-        navigate('/user/info', { state: { id: row.userId } });
-    };
-
-    const onChangeStatusClick = async (e, row) => {
-        e.stopPropagation();
-        if (window.confirm(`Bạn có chắc muốn đổi trạng thái người dùng ${row.name}`)) {
-            await userService.changeUserState(row.userId)
+        if (window.confirm(`Bạn có chắc muốn loại ${row.name} khỏi admin`)) {
+            adminServices.removeAdmin(row.userId)
             fetchData()
         }
     };
 
-    const onDeleteClick = async (e, row) => {
-        e.stopPropagation();
-        if (window.confirm(`Bạn có chắc muốn xóa người dùng ${row.name}`)) {
-            await userService.deleteUsser(row.userId)
+    const onMakeAdminClick = (event) => {
+        const enteredName = prompt('Please enter the admin\'s email')
+        if (enteredName) {
+            adminServices.makeAdmin(enteredName)
             fetchData()
         }
-    };
+    }
 
     const columns = [
         { field: 'stt', headerName: 'STT', width: 50, sortable: false },
-        { field: 'name', headerName: 'Tên', width: 200, sortable: false },
-        { field: 'email', headerName: 'Email', width: 200, sortable: false },
+        { field: 'name', headerName: 'Tên', width: 300, sortable: false },
+        { field: 'email', headerName: 'Email', width: 300, sortable: false },
         {
             field: 'phoneNumber',
             headerName: 'Số điện thoại',
-            width: 110,
+            width: 200,
             sortable: false,
         },
-        { field: 'isAuthor', headerName: 'Tác giả', width: 100, sortable: false,
-        renderCell: (params) => {
-            if(params.row.isAuthor === true)
-                return <CheckBox/>
-            else
-                return <CheckBoxOutlineBlank/>
-        }
-        },
-        { field: 'status', headerName: 'Trạng thái', width: 120, sortable: false },
-        {
-            field: 'Đơn hàng',
-            headerName: 'Đơn hàng',
-            description: 'Xem danh sách đơn hàng.',
-            sortable: false,
-            width: 90,
-            renderCell: (params) => {
-                return <IconButton sx={{ color: blue }}
-                    onClick={(e) => onUserOrderClick(e, params.row)}
-                    variant="contained">
-                    <VisibilityIcon></VisibilityIcon>
-                </IconButton>
-            }
-        },
+        { field: 'status', headerName: 'Trạng thái', width: 200, sortable: false },
         {
             field: 'Action',
             headerName: 'Action',
-            description: 'Xem danh sách đơn hàng.',
+            description: 'Action can perform',
             sortable: false,
-            width: 90,
+            width: 100,
             renderCell: (params) => {
                 return (
                     <div>
                         <span>
-                            <IconButton sx={{ color: blue }}
-                                onClick={(e) => onChangeStatusClick(e, params.row)}
-                                variant="contained">
-                                <NotInterestedIcon>
-                                </NotInterestedIcon>
-                            </IconButton>
-                        </span>
-                        <span>
                             <IconButton sx={{ color: orange }}
-                                onClick={(e) => onDeleteClick(e, params.row)}
+                                onClick={(e) => onRemoveAdminClick(e, params.row)}
                                 variant="contained">
                                 <DeleteIcon>
                                 </DeleteIcon>
@@ -123,7 +86,6 @@ const Users = () => {
     const [queryType, setQueryType] = useState("All")
     const [sortType, setSortType] = useState("Asc")
     const [sortBy, setSortBy] = useState("Name")
-    const [includeAuthor, setIncludeAuthor] = useState(true)
 
     const fetchData = async () => {
         setPageState(old => ({ ...old, isLoading: true }))
@@ -132,11 +94,12 @@ const Users = () => {
             setQueryString("All");
         }
         if (queryType.toString() == "All") {
-            response = await userService.getUserPaging(pageState.page, pageState.pageSize, queryType, "All", sortBy, sortType)
+            response = await adminServices.getAdminPaging(pageState.page, pageState.pageSize, queryType, "All", sortBy, sortType)
         } else if (queryString) {
-            response = await userService.getUserPaging(pageState.page, pageState.pageSize, queryType, queryString, sortBy, sortType)
+            response = await adminServices.getAdminPaging(pageState.page, pageState.pageSize, queryType, queryString, sortBy, sortType)
             if (response.data) {
                 const json = response.data
+                console.log(json)
                 setPageState(old => ({ ...old, isLoading: false, data: json.cards, total: json.total }))
             }
         } else {
@@ -154,10 +117,18 @@ const Users = () => {
     }, [pageState.page, pageState.pageSize])
     return (
         <div>
-            <Box>
+            <Stack>
+                <Button variant="contained" size="large"
+                    onClick={onMakeAdminClick}
+                    sx={{
+                        backgroundColor: theme.palette.primary.main,
+                        width: 'fit-content',
+                        marginBottom: 2,
+                        alignSelf: 'end'
+                    }}
+                >Thêm Admin</Button>
                 <Paper
                     component="form"
-                    className="search-container"
                     sx={{display: 'flex', marginBottom: "0.5em", padding: "0.5em", justifyContent: "space-between"}}
                 >
                     <Box>
@@ -225,7 +196,7 @@ const Users = () => {
                         </Select>
                     </Box>
                 </Paper>
-            </Box>
+            </Stack>
             <Box>
                 <div className='table-container'>
                     <DataGrid
@@ -250,4 +221,4 @@ const Users = () => {
     );
 }
 
-export default Users
+export default Admins

@@ -10,22 +10,33 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import PageNotFound from './pages/NotFound';
 import UserInfo from './pages/users/UserInfo';
 import EditUser from './pages/users/EditUser';
+import Admins from './pages/admins/Admins';
+import DefaultLayout from './components/layout/DefaultLayout';
+import UserDetailInfo from './pages/users/UserDetailInfo';
+import Users from './pages/users/Users';
 
 function App() {
+  useEffect(() => {
+    document.title = 'BoShaAdmin';
+  }, []);
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact="true" path="/" element={<><Header /><Dashboard /></>}></Route>
+          <Route exact="true" path="/" element={<DefaultLayout><Dashboard/></DefaultLayout>}></Route>
           <Route path="/logIn" element={<><Header /><Login /></>}></Route>
           <Route path="/forgotPassword" element={<ForgotPassword />}></Route>
           <Route path="/changePass" element={<ChangePassword />}></Route>
-          <Route path="/user/userInfo" element={<><Header /><UserInfo /></>}></Route>
-          <Route path="/user/userEdit" element={<><Header /><EditUser /></>}></Route>
+          <Route path="/user/userInfo" element={<DefaultLayout><UserInfo/></DefaultLayout>}></Route>
+          <Route path="/user/userEdit" element={<DefaultLayout><EditUser/></DefaultLayout>}></Route>
+          <Route path='/dashboard' element={<DefaultLayout><Dashboard/></DefaultLayout>}></Route>
+          <Route path='/users' element={<DefaultLayout><Users/></DefaultLayout>}></Route>
+          <Route path='/users/userDetailInfo' element={<DefaultLayout><UserDetailInfo/></DefaultLayout>}></Route>
+          <Route path='/admins' element={<DefaultLayout><Admins/></DefaultLayout>}></Route>
           <Route path='*' element={<><Header /><PageNotFound /></>} />
         </Routes>
       </BrowserRouter>

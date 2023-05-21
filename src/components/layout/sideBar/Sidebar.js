@@ -5,15 +5,14 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import LogoOrange from '../../../../assets/images/LogoOrange.png'
-import '../../../../css/header.css'
+import '../../../css/header.css'
 
 import { NavLink } from 'react-router-dom';
-import { LunchDining, Info, ListAlt, Discount, AutoGraph, Person, Store, AdminPanelSettings, AirplaneTicket, GifBox } from '@mui/icons-material';
+import { LunchDining, Info, ListAlt, Discount, AutoGraph, Person, Store, AdminPanelSettings, AirplaneTicket, GifBox, BarChart, Category, Book } from '@mui/icons-material';
 import { Toolbar } from '@mui/material';
 
 const Sidebar = () => {
-  const iconColor = '#FF8357'
+  const iconColor = '#89D5C9'
   let activeStyle = {
     background: '#89D5C9',
     color: 'white',
@@ -28,16 +27,17 @@ const Sidebar = () => {
     <Drawer
       sx={{
         width: '20vw',
+        height: 'fill',
         flexShrink: 0,
         [`& .MuiDrawer-paper`]: { width: '20vw', boxSizing: 'border-box' },
       }}
       variant="permanent"
     >
       <Toolbar />
-      <List component={'nav'}>
+      <List component={'nav'} sx={{ marginTop: "3em"}}>
         <ListItemButton component={NavLink} to='/dashboard'>
           <ListItemIcon>
-            <Info sx={{ color: iconColor }} />
+            <BarChart sx={{ color: iconColor }} />
           </ListItemIcon>
           <NavLink exact="true" to="/dashboard" style={({ isActive }) =>
             isActive ? activeStyle : undefined
@@ -51,13 +51,13 @@ const Sidebar = () => {
             isActive ? activeStyle : undefined
           }>User</NavLink>
         </ListItemButton>
-        <ListItemButton component={NavLink} to='/stores'>
+        <ListItemButton component={NavLink} to='/books'>
           <ListItemIcon>
-            <Store sx={{ color: iconColor }} />
+            <Book sx={{ color: iconColor }} />
           </ListItemIcon>
-          <NavLink exact="true" to="/stores" style={({ isActive }) =>
+          <NavLink exact="true" to="/books" style={({ isActive }) =>
             isActive ? activeStyle : undefined
-          }>Cửa hàng</NavLink>
+          }>Truyện</NavLink>
         </ListItemButton>
         <ListItemButton component={NavLink} to='/admins'>
           <ListItemIcon>
@@ -67,13 +67,13 @@ const Sidebar = () => {
             isActive ? activeStyle : undefined
           }>Admin</NavLink>
         </ListItemButton>
-        <ListItemButton component={NavLink} to='/vouchers'>
+        <ListItemButton component={NavLink} to='/categories'>
           <ListItemIcon>
-            <Discount sx={{ color: iconColor }} />
+            <Category sx={{ color: iconColor }} />
           </ListItemIcon>
-          <NavLink exact="true" to="/vouchers" style={({ isActive }) =>
+          <NavLink exact="true" to="/categories" style={({ isActive }) =>
             isActive ? activeStyle : undefined
-          }>Voucher</NavLink>
+          }>Thể loại</NavLink>
         </ListItemButton>
       </List>
     </Drawer>
