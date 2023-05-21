@@ -4,8 +4,8 @@ export const userService = {
     updateUserInfo: async (data) => {
         return await api.put(`${baseURL}/UpdateInfo`, data)
     },
-    getUserInfo: async () => {
-        return await api.get(`${baseURL}/GetUserInfo`)
+    getUserInfoById: async (id) => {
+        return await api.get(`${baseURL}/GetUserByID?id=${id}`)
     },
     getUserPaging: async (pageNumber, pageSize, queryType, queryString, sortBy, sortType) => {
         return await api.get(

@@ -16,8 +16,8 @@ import UserInfo from './pages/users/UserInfo';
 import EditUser from './pages/users/EditUser';
 import Admins from './pages/admins/Admins';
 import DefaultLayout from './components/layout/DefaultLayout';
-import UserDetailInfo from './pages/users/UserDetailInfo';
 import Users from './pages/users/Users';
+import UserDetailInfo from './pages/users/UserDetailInfo';
 
 function App() {
   useEffect(() => {

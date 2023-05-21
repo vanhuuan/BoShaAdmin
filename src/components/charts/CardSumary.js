@@ -1,6 +1,7 @@
 import { Card, CardContent, Typography, Divider, CardMedia, Box, styled } from "@mui/material";
 import React from "react";
 import { makeStyles } from "@mui/material";
+import '../../css/cardsumary.css'
 
 function CardSummary({ title, value, footer }) {
   return (
@@ -14,10 +15,10 @@ function CardSummary({ title, value, footer }) {
             {title}
           </Typography>
           <Divider />
-          <Typography variant="h3" color="textPrimary">
+          <Typography variant="h4" color="textPrimary">
             {value}
           </Typography>
-          <div>{footer}</div>
+          <h5 style={{margin: 0, fontWeight: `500`}}>{footer}</h5>
         </CardContent>
       </Card>
     </>
@@ -39,15 +40,18 @@ function CardBookSummary({ title, value, footer, img }) {
           <Box sx={{ display: 'flex'}}>
             <CardMedia
               component="img"
-              sx={{ height: "6em", aspectRatio: "16:9", width: "auto" }}
+              sx={{ height: "5em", aspectRatio: "16:9", width: "auto", marginTop: `0.3em` }}
               image={img}
               alt={value}
             />
-            <CardContent sx={{ flex: '1 0 auto' }}>
-              <Typography component="div" variant="h7" style={{ wordWrap: "break-word" }}>
+            <CardContent style={{padding: '0.4em'}} >
+              {/* <Typography component="div" variant="h5" style={{ wordWrap: "break-word" }}>
                 {value}
-              </Typography>
-              <Typography variant="subtitle1" color="text.secondary" component="div" style={{ wordWrap: "break-word" }}>
+              </Typography> */}
+              <h5 className='line-clamp'>
+                {value}
+              </h5>
+              <Typography variant="subtitle2" color="text.secondary" component="div" style={{ wordWrap: "break-word" }}>
                 {footer}
               </Typography>
             </CardContent>

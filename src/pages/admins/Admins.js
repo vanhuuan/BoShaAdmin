@@ -43,12 +43,12 @@ const Admins = () => {
 
     const columns = [
         { field: 'stt', headerName: 'STT', width: 50, sortable: false },
-        { field: 'name', headerName: 'Tên', width: 300, sortable: false },
-        { field: 'email', headerName: 'Email', width: 300, sortable: false },
+        { field: 'name', headerName: 'Tên', width: 200, sortable: false },
+        { field: 'email', headerName: 'Email', width: 200, sortable: false },
         {
             field: 'phoneNumber',
             headerName: 'Số điện thoại',
-            width: 200,
+            width: 120,
             sortable: false,
         },
         { field: 'status', headerName: 'Trạng thái', width: 200, sortable: false },

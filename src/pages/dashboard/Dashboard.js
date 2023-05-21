@@ -65,7 +65,7 @@ function DashBoard() {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        statisticServce.getSystemStatisticYear(2023, "").then((rs) => {
+        statisticServce.getStatisticYear(2023, "").then((rs) => {
             console.log(rs.data)
             if(rs.data){
                 rs.data.forEach(element => {

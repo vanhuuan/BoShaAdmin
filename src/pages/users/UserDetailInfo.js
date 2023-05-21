@@ -1,12 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Box, Grid, Typography } from '@mui/material'
-import LinearProgress from '@mui/material'
-import FormControl from '@mui/material'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Box, Grid, Typography, LinearProgress, InputLabel, OutlinedInput, Divider, IconButton, Avatar, InputAdornment } from '@mui/material'
 import { userService } from '../../services/userServices'
 import { firebaseService } from '../../services/firebase.services'
-
+import { ExpandLess, ExpandMore, PhoneAndroidOutlined, Person, Person2, EmailOutlined, Check } from '@mui/icons-material'
+import { FormControl } from '@mui/material'
+import UserStatistic from './Statistic'
+import '../../css/userinfo.css'
 const UserDetailInfo = () => {
     const [userInfo, setUserInfo] = useState({
         "id": "64524e67c851f42527dd44e0",
@@ -26,24 +27,19 @@ const UserDetailInfo = () => {
     })
     const [ava, setAva] = useState("")
     const [isLoading, setIsLoading] = useState(true)
-
-    function onClose() {
-        setAvaState({ preview: null })
-    }
-
-    function onCrop(preview) {
-        setAvaState({ preview })
-    }
-
-    let navigate = useNavigate()
+    const [showMore, setShowMore] = useState(false)
 
     const getAva = (avaUrl) => {
         setAva(avaUrl)
     }
 
+    const location = useLocation();
+    const data = location.state;
+
     useEffect(() => {
         setIsLoading(true)
-        userService.getUserInfo().then((rs) => {
+        console.log(data)
+        userService.getUserInfoById(data.id).then((rs) => {
             console.log(rs.data)
             setUserInfo(rs.data)
             firebaseService.getAva(rs.data.id, getAva)
@@ -54,13 +50,13 @@ const UserDetailInfo = () => {
     return (
         <Box sx={{ flexGrow: 1 }} margin={`2em 0`} className="userInfo">
             <Grid container spacing={2}>
-                <Grid sm="1" md="2" lg="3">
+                <Grid sm="1" md="1" lg="1">
 
                 </Grid>
-                <Grid sm="10" md="8" lg="6">
+                <Grid sm="10" md="10" lg="10">
                     {isLoading === false ?
-                        <div className="container" padding={"1em"}>
-                            <div className='container-header' style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div className=".container-info" padding={"1em"}>
+                            <div className='container-header' style={{ display: 'flex', justifyContent: 'space-between', flexGrow: 1 }}>
                                 <Typography sx={{ typography: { md: 'h5', sm: 'h10' } }}> <Person color="primary" />Thông tin tài khoản </Typography>
                             </div>
                             <div className='container-body' style={{ display: "flex", justifyContent: "center" }}>
@@ -70,9 +66,8 @@ const UserDetailInfo = () => {
                                     <Avatar alt={userInfo.name} className="ava" sx={{ width: "5em", height: "5em" }} >{userInfo.name[0]}</Avatar>
                                 }
                             </div>
-                            <div className='container-body'>
+                            <div className='container-body' style={{ marginTop: "1em"}}>
                                 <Grid container spacing={2}>
-                                    <Grid xs="12"> <Divider className="devider-grid" variant="middle"></Divider> </Grid>
                                     <Grid md={4} xs="12"><Typography variant="h5" className="title" >Tên người dùng</Typography></Grid>
                                     <Grid md={6} xs="12">
                                         <FormControl className="formCt" fullWidth sx={{ m: 1 }}>
@@ -114,19 +109,39 @@ const UserDetailInfo = () => {
                                             />
                                         </FormControl>
                                     </Grid>
+                                    <Grid md={4} xs="12"><Typography variant="h5" className="title" >Là tác giả</Typography></Grid>
+                                    <Grid md={6} xs="12">
+                                        <FormControl className="formCt" fullWidth sx={{ m: 1 }}>
+                                            <InputLabel htmlFor="outlined-adornment-amount"></InputLabel>
+                                            <OutlinedInput
+                                                id="outlined-adornment-amount"
+                                                startAdornment={<InputAdornment position="start"><Check /></InputAdornment>}
+                                                required
+                                                disabled
+                                                defaultValue={userInfo.isAuthor === true ? "Đã là tác giả" : "Chưa là tác giả"}
+                                            />
+                                        </FormControl>
+                                    </Grid>
                                     <Grid xs="12"> <Divider className="devider-grid" variant="middle"></Divider> </Grid>
                                 </Grid>
                             </div>
-                            <div style={{ display: "flex", justifyContent: "end", marginRight: "5em", marginBottom: "0.5em" }}>
-                                <IconButton sx={{ width: "2em", height: "2em" }} className="button-info" onClick={() => navigate("/user/userEdit")} color="info">
-                                    <EditIcon />
-                                </IconButton>
-                            </div>
+                            {userInfo.isAuthor === true ? <div>
+                                <div style={{ display: "flex", justifyContent: "center", marginRight: "5em", marginBottom: "0.5em" }}>
+                                    <IconButton sx={{ height: "2em" }} className="button-info" onClick={() => setShowMore(!showMore)} color="info">
+                                        {showMore === false ? <> <ExpandMore /> Xem thống kê truyện của người dùng </>
+                                            : <> <ExpandLess /> Ẩn bớt </>}
+
+                                    </IconButton>
+                                </div>
+                                {showMore == true ?
+                                    <> <UserStatistic id={userInfo.id}></UserStatistic> </>
+                                    : <></>}
+                            </div> : <></>}
                         </div>
 
                         : <LinearProgress />}
                 </Grid>
-                <Grid  sm="1" md="2" lg="3">
+                <Grid sm="1" md="1" lg="1">
                 </Grid>
             </Grid>
         </Box >

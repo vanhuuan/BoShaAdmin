@@ -27,9 +27,9 @@ const Users = () => {
     const token = localStorage.getItem("AccessToken")
     const navigate = useNavigate()
 
-    const onUserOrderClick = (e, row) => {
+    const onUserClick = (e, row) => {
         e.stopPropagation();
-        navigate('/user/info', { state: { id: row.userId } });
+        navigate('/users/userDetailInfo', { state: { id: row.userId } });
     };
 
     const onChangeStatusClick = async (e, row) => {
@@ -68,14 +68,14 @@ const Users = () => {
         },
         { field: 'status', headerName: 'Trạng thái', width: 120, sortable: false },
         {
-            field: 'Đơn hàng',
-            headerName: 'Đơn hàng',
-            description: 'Xem danh sách đơn hàng.',
+            field: 'Chi tiết',
+            headerName: 'Chi tiết',
+            description: 'Xem danh thông tin chi tiết người dùng',
             sortable: false,
             width: 90,
             renderCell: (params) => {
                 return <IconButton sx={{ color: blue }}
-                    onClick={(e) => onUserOrderClick(e, params.row)}
+                    onClick={(e) => onUserClick(e, params.row)}
                     variant="contained">
                     <VisibilityIcon></VisibilityIcon>
                 </IconButton>

@@ -26,10 +26,10 @@ const Sidebar = () => {
 
     <Drawer
       sx={{
-        width: '20vw',
-        height: 'fill',
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { width: '20vw', boxSizing: 'border-box' },
+        width: '17vw',
+        // height: 'fill',
+        // flexShrink: 0,
+        [`& .MuiDrawer-paper`]: { width: '17vw', boxSizing: 'border-box' },
       }}
       variant="permanent"
     >
@@ -43,6 +43,7 @@ const Sidebar = () => {
             isActive ? activeStyle : undefined
           }>Dashboard</NavLink>
         </ListItemButton>
+        <Divider sx={{ color: iconColor }} variant="middle"></Divider>
         <ListItemButton component={NavLink} to='/users'>
           <ListItemIcon>
             <Person sx={{ color: iconColor }} />
@@ -51,6 +52,7 @@ const Sidebar = () => {
             isActive ? activeStyle : undefined
           }>User</NavLink>
         </ListItemButton>
+        <Divider sx={{ color: iconColor }} variant="middle"></Divider>
         <ListItemButton component={NavLink} to='/books'>
           <ListItemIcon>
             <Book sx={{ color: iconColor }} />
@@ -59,6 +61,7 @@ const Sidebar = () => {
             isActive ? activeStyle : undefined
           }>Truyện</NavLink>
         </ListItemButton>
+        <Divider sx={{ color: iconColor }} variant="middle"></Divider>
         <ListItemButton component={NavLink} to='/admins'>
           <ListItemIcon>
             <AdminPanelSettings sx={{ color: iconColor }} />
@@ -67,6 +70,7 @@ const Sidebar = () => {
             isActive ? activeStyle : undefined
           }>Admin</NavLink>
         </ListItemButton>
+        <Divider sx={{ color: iconColor }} variant="middle"></Divider>
         <ListItemButton component={NavLink} to='/categories'>
           <ListItemIcon>
             <Category sx={{ color: iconColor }} />

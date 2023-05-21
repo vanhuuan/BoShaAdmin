@@ -12,6 +12,10 @@
     margin: 2em 2em;
 }
 
+.container-info {
+    display: inline-block;
+}
+
 .ava{
     width: 5em;
     height: 5em
