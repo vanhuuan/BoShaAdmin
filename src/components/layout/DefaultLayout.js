@@ -1,7 +1,7 @@
 import { Box, CssBaseline, Grid, Toolbar } from '@mui/material'
 import React from 'react'
 import Header from './header/Header'
-import Sidebar from './SideBar/Sidebar'
+import Sidebar from './sideBar/Sidebar'
 
 const DefaultLayout = ({ children }) => {
   return (
