@@ -108,7 +108,7 @@ const Login = () => {
           alignItems="center"
           justifyContent={"center"}
           margin="auto"
-          marginTop={5}
+          marginTop={"100px"}
           padding={3}
           backgroundColor='white'
           boxShadow={'0px 0px 10px #7D7D7E'}>
