@@ -10,11 +10,11 @@ import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import SearchIcon from '@mui/icons-material/Search';
 import { categoriseService } from "../../services/categories.services";
-import { AddCategory, EditCategory } from "./EditCategory";
 import theme from "../../theme";
+import EditCategory from "./EditCategory";
+import AddCategory from "./AddCategory";
 
 const blue = '#89D5C9'
-const orange = '#FF8357'
 
 const Categories = () => {
     const navigate = useNavigate()
@@ -34,14 +34,15 @@ const Categories = () => {
     };
 
     const columns = [
-        { field: 'stt', headerName: 'STT', width: 50, sortable: false },
-        { field: 'name', headerName: 'Tên', width: 200, sortable: false },
+        { field: 'stt', headerName: 'STT', width: 100, sortable: false },
+        { field: 'name', headerName: 'Tên', width: 300, sortable: false },
+        { field: 'description', headerName: 'Miêu tả', width: 500, sortable: false },
         {
-            field: 'Miêu tả',
-            headerName: 'Miêu tả',
-            description: 'Miêu tả của thể loại',
+            field: 'Chỉnh sửa',
+            headerName: 'Chỉnh sửa',
+            description: 'Chỉnh sửa thể loại',
             sortable: false,
-            width: 90,
+            width: 150,
             renderCell: (params) => {
                 return <IconButton sx={{ color: blue }}
                     onClick={(e) => onEditClick(e, params.row)}
@@ -55,7 +56,7 @@ const Categories = () => {
             headerName: 'Xóa',
             description: 'Xóa thể loại',
             sortable: false,
-            width: 90,
+            width: 150,
             renderCell: (params) => {
                 return <IconButton sx={{ color: blue }}
                     onClick={(e) => onDeleteClick(e, params.row)}
@@ -86,10 +87,11 @@ const Categories = () => {
             setQueryString("All");
         }
         if (queryString) {
-            response = await categoriseService.getPagingCategories(pageState.page, pageState.pageSize, queryString)
+            response = await categoriseService.getPagingCategories(pageState.page - 1, pageState.pageSize, queryString)
+            console.log(response)
             if (response.data) {
                 const json = response.data
-                setPageState(old => ({ ...old, isLoading: false, data: json.cards, total: json.total }))
+                setPageState(old => ({ ...old, isLoading: false, data: json.data, total: json.total }))
             }
         } else {
             alert("Query string cannot be null or empty")
@@ -98,7 +100,7 @@ const Categories = () => {
         if (response.data) {
             const json = response.data
             console.log(json)
-            setPageState(old => ({ ...old, isLoading: false, data: json.users, total: json.total }))
+            setPageState(old => ({ ...old, isLoading: false, data: json.data, total: json.total }))
         }
     }
 
@@ -116,7 +118,7 @@ const Categories = () => {
         setAddOpen(false)
     }
 
-    const AddCategory = () => {
+    const OnAddCategory = () => {
         setAddOpen(true)
     }
     return (
@@ -128,11 +130,10 @@ const Categories = () => {
                 handleClose={handleClose} />
             <AddCategory
                 isOpen={addOpen}
-                handleSave={handleSave}
                 handleClose={handleClose} />
             <Box>
                 <Button variant="contained" size="large"
-                    onClick={AddCategory}
+                    onClick={OnAddCategory}
                     sx={{
                         backgroundColor: theme.palette.primary.main,
                         width: 'fit-content',

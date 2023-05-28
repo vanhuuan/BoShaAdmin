@@ -8,7 +8,7 @@ export const categoriseService = {
         return await api.delete(`${baseURL}/Category/Delete?id=${id}`)
     },
     getPagingCategories: async (pageNumber, pageSize, queryString) => {
-        return await api.get(`${baseURL}/Category/Paging?PageNumber=${pageNumber}&PageSize=${pageSize}QueryString=${queryString}`)
+        return await api.get(`${baseURL}/Category/Paging?PageNumber=${pageNumber}&PageSize=${pageSize}&QueryString=${queryString}`)
     },
     getCateory: async (id) => {
         return await api.get(`${baseURL}/Category?id=${id}`)
