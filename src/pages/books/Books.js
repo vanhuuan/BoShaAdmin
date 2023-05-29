@@ -17,13 +17,14 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import Grid from '@mui/material/Grid';
-import { Check, CheckBox, CheckBoxOutlineBlank, Label, Unarchive } from '@mui/icons-material';
+import { Check, CheckBox, CheckBoxOutlineBlank, Label, StarBorder, Unarchive } from '@mui/icons-material';
 import { userService } from "../../services/userServices";
+import { bookService } from "../../services/book.services";
 
 const blue = '#89D5C9'
 const orange = '#FF8357'
 
-const Users = () => {
+const Books = () => {
     const token = localStorage.getItem("AccessToken")
     const navigate = useNavigate()
 
@@ -50,27 +51,23 @@ const Users = () => {
 
     const columns = [
         { field: 'stt', headerName: 'STT', width: 50, sortable: false },
-        { field: 'name', headerName: 'Tên', width: 200, sortable: false },
-        { field: 'email', headerName: 'Email', width: 200, sortable: false },
+        { field: 'name', headerName: 'Tên truyện', width: 300, sortable: false },
+        { field: 'numOfChapter', headerName: 'Số chapter', width: 90, sortable: false },
+        { field: 'numOfReview', headerName: 'Số lượt đánh giá', width: 90, sortable: false },
         {
-            field: 'phoneNumber',
-            headerName: 'Số điện thoại',
-            width: 110,
-            sortable: false,
+            field: 'star', headerName: 'Đánh giá', width: 90, sortable: false,
+            renderCell: (params) => {
+                return <Typography>{params.row.numOfReview} <StarBorder/></Typography>
+            }
         },
-        { field: 'isAuthor', headerName: 'Tác giả', width: 100, sortable: false,
-        renderCell: (params) => {
-            if(params.row.isAuthor === true)
-                return <CheckBox/>
-            else
-                return <CheckBoxOutlineBlank/>
-        }
-        },
-        { field: 'status', headerName: 'Trạng thái', width: 120, sortable: false },
+        { field: 'numOflike', headerName: 'Số lượt theo dõi', width: 90, sortable: false },
+        { field: 'numOfView', headerName: 'Số lượt xem', width: 90, sortable: false },
+        { field: 'state', headerName: 'Trạng thái', width: 150, sortable: false },
+        { field: 'price', headerName: 'Giá', width: 150, sortable: false },
         {
             field: 'Chi tiết',
             headerName: 'Chi tiết',
-            description: 'Xem danh thông tin chi tiết người dùng',
+            description: 'Xem danh thông tin chi tiết truyện',
             sortable: false,
             width: 90,
             renderCell: (params) => {
@@ -82,22 +79,14 @@ const Users = () => {
             }
         },
         {
-            field: 'Action',
-            headerName: 'Action',
-            description: 'Xem danh sách đơn hàng.',
+            field: 'Ẩn truyện',
+            headerName: 'Ẩn truyện',
+            description: 'Ẩn truyện',
             sortable: false,
             width: 90,
             renderCell: (params) => {
                 return (
                     <div>
-                        <span>
-                            <IconButton sx={{ color: blue }}
-                                onClick={(e) => onChangeStatusClick(e, params.row)}
-                                variant="contained">
-                                <NotInterestedIcon>
-                                </NotInterestedIcon>
-                            </IconButton>
-                        </span>
                         <span>
                             <IconButton sx={{ color: orange }}
                                 onClick={(e) => onDeleteClick(e, params.row)}
@@ -122,8 +111,13 @@ const Users = () => {
     const [queryString, setQueryString] = useState("All")
     const [queryType, setQueryType] = useState("All")
     const [sortType, setSortType] = useState("Asc")
-    const [sortBy, setSortBy] = useState("Name")
+    const [sortBy, setSortBy] = useState("HotAll")
     const [includeAuthor, setIncludeAuthor] = useState(true)
+    const [min, setMin] = useState(0)
+    const [max, setMax] = useState(999999999)
+    const [listCategories, setListCategories] = useState([])
+    const [categories, setCategories] = useState([])
+    const [state, setState] = useState("All")
 
     const fetchData = async () => {
         setPageState(old => ({ ...old, isLoading: true }))
@@ -132,9 +126,9 @@ const Users = () => {
             setQueryString("All");
         }
         if (queryType.toString() == "All") {
-            response = await userService.getUserPaging(pageState.page, pageState.pageSize, queryType, "All", sortBy, sortType)
+            response = await bookService.findBook(pageState.page, pageState.pageSize, "", categories, state, min, max, sortBy, sortType)
         } else if (queryString) {
-            response = await userService.getUserPaging(pageState.page, pageState.pageSize, queryType, queryString, sortBy, sortType)
+            response = await bookService.findBook(pageState.page, pageState.pageSize, categories, state, min, max, queryString, sortBy, sortType)
             if (response.data) {
                 const json = response.data
                 setPageState(old => ({ ...old, isLoading: false, data: json.cards, total: json.total }))
@@ -146,7 +140,7 @@ const Users = () => {
         if (response.data) {
             const json = response.data
             console.log(json)
-            setPageState(old => ({ ...old, isLoading: false, data: json.users, total: json.total }))
+            setPageState(old => ({ ...old, isLoading: false, data: json.data, total: json.total }))
         }
     }
     useEffect(() => {
@@ -158,27 +152,13 @@ const Users = () => {
                 <Paper
                     component="form"
                     className="search-container"
-                    sx={{display: 'flex', marginBottom: "0.5em", padding: "0.5em", justifyContent: "space-between"}}
+                    sx={{ display: 'flex', marginBottom: "0.5em", padding: "0.5em", justifyContent: "space-between" }}
                 >
                     <Box>
-                        <Typography sx={{ ml: 2, mb: 1 }}>Lọc theo: </Typography>
-                        <Select
-                            labelId="demo-simple-select-required-label"
-                            id="demo-simple-select-required"
-                            value={queryType}
-                            label="Search feld"
-                            onChange={e => { setQueryType(e.target.value) }}
-                            className='option'
-                            size="small"
-                        >
-                            <MenuItem value={"All"}>Tất cả</MenuItem>
-                            <MenuItem value={"Name"}>Tên</MenuItem>
-                            <MenuItem value={"Email"}>Email</MenuItem>
-                            <MenuItem value={"PhoneNumber"}>Số điện thoại</MenuItem>
-                        </Select>
+                        <Typography sx={{ ml: 2, mb: 1 }}>Tìm kiếm: </Typography>
                         <TextField
-                            placeholder="Tìm kiếm"
-                            inputProps={{ 'aria-label': 'Tìm kiếm' }}
+                            placeholder="Tên truyện"
+                            inputProps={{ 'aria-label': 'Text To Search' }}
                             value={queryString}
                             onChange={e => { setQueryString(e.target.value) }}
                             variant='outlined'
@@ -198,24 +178,25 @@ const Users = () => {
                     <Box>
                         <Typography sx={{ ml: 2, mb: 1 }}>Sắp xếp theo: </Typography>
                         <Select
-                            labelId="demo-simple-select-required-label"
-                            id="demo-simple-select-required"
+                            id="sortBy"
                             value={sortBy}
-                            label="Sort field"
                             onChange={e => { setSortBy(e.target.value) }}
                             className='option'
                             size="small"
-                            sx={{ marginRight: "0.5em"}}
+                            sx={{ marginRight: "0.5em", minWidth: "15em" }}
                         >
-                            <MenuItem value={"Name"}>Tên</MenuItem>
-                            <MenuItem value={"PhoneNumber"}>Số điện thoại</MenuItem>
-                            <MenuItem value={"Email"}>Email</MenuItem>
+                            <MenuItem value={"Newest"}>Cập nhật mới</MenuItem>
+                            <MenuItem selected value={"HotAll"}>Xem nhiều nhất</MenuItem>
+                            <MenuItem value={"HotDay"}>Xem nhiều nhất hôm nay</MenuItem>
+                            <MenuItem value={"HotWeek"}>Xem nhiều nhất tuần</MenuItem>
+                            <MenuItem value={"HotMonth"}>Xem nhiều nhất tháng</MenuItem>
+                            <MenuItem value={"MostFollow"}>Theo dõi nhiều nhất</MenuItem>
+                            <MenuItem value={"MostComment"}>Bình luận nhiều nhất</MenuItem>
+                            <MenuItem value={"MostChapter"}>Số chapter nhiều</MenuItem>
                         </Select>
                         <Select
-                            labelId="demo-simple-select-required-label"
-                            id="demo-simple-select-required"
+                            id="sortType"
                             value={sortType}
-                            label="Sort type"
                             onChange={e => { setSortType(e.target.value); }}
                             className='option'
                             size="small"
@@ -250,4 +231,4 @@ const Users = () => {
     );
 }
 
-export default Users
+export default Books

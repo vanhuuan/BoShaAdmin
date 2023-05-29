@@ -19,6 +19,7 @@ import DefaultLayout from './components/layout/DefaultLayout';
 import Users from './pages/users/Users';
 import UserDetailInfo from './pages/users/UserDetailInfo';
 import Categories from './pages/categories/Categories';
+import Books from './pages/books/Books';
 
 function App() {
   useEffect(() => {
@@ -39,6 +40,7 @@ function App() {
           <Route path='/users/userDetailInfo' element={<DefaultLayout><UserDetailInfo/></DefaultLayout>}></Route>
           <Route path='/admins' element={<DefaultLayout><Admins/></DefaultLayout>}></Route>
           <Route path='/categories' element={<DefaultLayout><Categories/></DefaultLayout>}></Route>
+          <Route path='/books' element={<DefaultLayout><Books/></DefaultLayout>}></Route>
           <Route path='*' element={<><Header /><PageNotFound /></>} />
         </Routes>
       </BrowserRouter>
