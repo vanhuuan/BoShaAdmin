@@ -29,22 +29,14 @@ const Books = () => {
     const token = localStorage.getItem("AccessToken")
     const navigate = useNavigate()
 
-    const onUserClick = (e, row) => {
+    const onBookClick = (e, row) => {
         e.stopPropagation();
-        navigate('/users/userDetailInfo', { state: { id: row.userId } });
-    };
-
-    const onChangeStatusClick = async (e, row) => {
-        e.stopPropagation();
-        if (window.confirm(`Bạn có chắc muốn đổi trạng thái người dùng ${row.name}`)) {
-            await userService.changeUserState(row.userId)
-            fetchData()
-        }
+        navigate('/book/'+ row.id);
     };
 
     const onDeleteClick = async (e, row) => {
         e.stopPropagation();
-        if (window.confirm(`Bạn có chắc muốn xóa người dùng ${row.name}`)) {
+        if (window.confirm(`Bạn có chắc muốn ẩn truyện ${row.name}`)) {
             await userService.deleteUsser(row.userId)
             fetchData()
         }
@@ -78,7 +70,7 @@ const Books = () => {
             width: 90,
             renderCell: (params) => {
                 return <IconButton sx={{ color: blue }}
-                    onClick={(e) => onUserClick(e, params.row)}
+                    onClick={(e) => onBookClick(e, params.row)}
                     variant="contained">
                     <VisibilityIcon></VisibilityIcon>
                 </IconButton>

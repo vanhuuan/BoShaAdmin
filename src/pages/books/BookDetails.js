@@ -105,7 +105,7 @@ export default function BookDetail() {
                     <Grid item xs={10}>
                         {isLoading === false ?
                             <div>
-                                <div className='container'>
+                                <div className='container' style={{ display: "block"}}>
                                     <div className='container-header' style={{ display: 'flex', justifyContent: 'space-between' }}>
                                         <Typography variant='h5'>{book.name} </Typography>
                                         {status.canEdit ?
@@ -187,12 +187,9 @@ export default function BookDetail() {
                                     </div>
                                 </div>
 
-                                <div id='chapter-list' className='container'>
+                                <div id='chapter-list' className='container' style={{ display: "block"}}> 
                                     <div className='container-header' style={{ display: "flex", justifyContent: "space-between" }}>
                                         <Typography variant='h6'> Danh sách tập </Typography>
-                                        {book.authorId === uid ?
-                                            <Button><span style={{ color: "black" }} onClick={(e) => navigate("/chapter/addChapter", { state: data })}>Thêm chương mới</span></Button> : <></>
-                                        }
                                     </div>
                                     <div className='container-body'>
                                         <ListChapter book={{ id: id, canEdit: status.canEdit, canBuyed: status.buyed }}></ListChapter>
