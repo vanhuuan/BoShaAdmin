@@ -1,0 +1,11 @@
+.chapter-item {
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+@media only screen and (max-width: 600px) {
+    .list_Item_Button {
+        max-width: 200px;
+    }
+}

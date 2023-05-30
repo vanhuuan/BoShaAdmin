@@ -20,6 +20,8 @@ import Users from './pages/users/Users';
 import UserDetailInfo from './pages/users/UserDetailInfo';
 import Categories from './pages/categories/Categories';
 import Books from './pages/books/Books';
+import BookDetail from './pages/books/BookDetails';
+import Chapter from './pages/chapter/Chapter';
 
 function App() {
   useEffect(() => {
@@ -41,6 +43,8 @@ function App() {
           <Route path='/admins' element={<DefaultLayout><Admins/></DefaultLayout>}></Route>
           <Route path='/categories' element={<DefaultLayout><Categories/></DefaultLayout>}></Route>
           <Route path='/books' element={<DefaultLayout><Books/></DefaultLayout>}></Route>
+          <Route path="/book/:id" element={<><Header /><BookDetail /></>}></Route>
+          <Route path="/chapter/:id" element={<><Header /><Chapter /></>}></Route>
           <Route path='*' element={<><Header /><PageNotFound /></>} />
         </Routes>
       </BrowserRouter>

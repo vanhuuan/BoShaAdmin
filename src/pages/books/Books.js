@@ -20,6 +20,7 @@ import Grid from '@mui/material/Grid';
 import { Check, CheckBox, CheckBoxOutlineBlank, Label, StarBorder, Unarchive } from '@mui/icons-material';
 import { userService } from "../../services/userServices";
 import { bookService } from "../../services/book.services";
+import abbrNum from "../../services/numberHelper";
 
 const blue = '#89D5C9'
 const orange = '#FF8357'
@@ -57,13 +58,18 @@ const Books = () => {
         {
             field: 'star', headerName: 'Đánh giá', width: 90, sortable: false,
             renderCell: (params) => {
-                return <Typography>{params.row.numOfReview} <StarBorder/></Typography>
+                return <Typography>{params.row.numOfReview} <StarBorder /></Typography>
             }
         },
         { field: 'numOflike', headerName: 'Số lượt theo dõi', width: 90, sortable: false },
         { field: 'numOfView', headerName: 'Số lượt xem', width: 90, sortable: false },
         { field: 'state', headerName: 'Trạng thái', width: 150, sortable: false },
-        { field: 'price', headerName: 'Giá', width: 150, sortable: false },
+        {
+            field: 'price', headerName: 'Giá', width: 150, sortable: false,
+            renderCell: (params) => {
+                return <Typography>{abbrNum(params.row.price)}</Typography>
+            }
+        },
         {
             field: 'Chi tiết',
             headerName: 'Chi tiết',

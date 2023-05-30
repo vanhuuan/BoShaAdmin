@@ -1,0 +1,80 @@
+.chapter-nav {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.chapter-nav > * {
+    margin-right: 4px;
+}
+
+.chapter-nav__icon {
+    color: rgb(217,83,79);
+}
+
+.chapter-nav__icon:hover {
+    color: rgb(156, 67, 64);
+}
+
+.chapter-nav__page {
+    height: 30px;
+    aspect-ratio: 1/1;
+    color: white;
+    background-color: rgb(217,83,79);
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chapter-nav__select-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chapter-nav__select-item {
+    height: 75%;
+    min-width: 200px;
+    width: 300px;
+}
+
+.chapter-nav__comment {
+    color: white;
+    background-color: rgb(92,184,92);
+    height: 75%;
+    width: 120px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chapter-nav__comment-text {
+    margin-left: 4px;
+}
+
+@media only screen and (max-width: 768px) {
+    .chapter-nav__comment-text {
+        display: none;
+        padding: 4px
+    }
+    .chapter-nav__select-item {
+        height: 75%;
+        min-width: 190px;
+        width: 190px;
+    }
+}
+
+.chapter-nav__comment:hover {
+    background-color: rgb(63, 158, 63);
+}
