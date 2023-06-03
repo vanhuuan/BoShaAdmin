@@ -1,16 +1,15 @@
 import { Box, Card, Grid, TextField, Typography, styled, TableContainer, Paper, TableHead, TableBody, TableRow, Table, IconButton, CircularProgress, TablePagination, LinearProgress, FormHelperText, InputLabel, Select, MenuItem, FormControl } from "@mui/material";
 import React from "react";
-import { CardBookSummary, CardSummary } from "../../components/chart/CardSumary";
-import { CardBar } from "../../components/chart/CardBar";
+import { CardBookSummary, CardSummary } from "../../components/charts/CardSumary";
 import { useNavigate } from "react-router-dom";
-import Income from "../../components/chart/income";
+import Income from "../../components/charts/income";
 import { useState } from "react";
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { BarChart, CalendarMonth, Person, SearchOffTwoTone, SkipNext, SkipPrevious } from "@mui/icons-material";
 import abbrNum from "../../services/numberHelper";
 import { useEffect } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
-import { statisticService } from "../../services/statistic.services";
+import { statisticServce } from "../../services/statistic.services";
 import SearchIcon from '@mui/icons-material/Search';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -181,19 +180,18 @@ export default function UserStatistic() {
     const [cardData, setCardData] = useState(defaultCardData)
     const loadStatisticCard = async () => {
         setIsLoadingCard(true)
-        statisticService.getStatisticCard(values[0].format("MM/DD/YYYY"), values[1].format("MM/DD/YYYY")).then((rs) => {
+        statisticServce.getStatisticCard(values[0].format("MM/DD/YYYY"), values[1].format("MM/DD/YYYY")).then((rs) => {
             console.log(rs)
             setCardData(rs.data)
             setIsLoadingCard(false)
         })
-
     }
 
     const [isLoadingChart, setIsLoadingChart] = useState(true)
     const [sortChart, setSortChart] = useState("View")
     const loadChartData = async (sort) => {
         setIsLoadingChart(true)
-        statisticService.getStatisticChart(values[0].format("MM/DD/YYYY"), values[1].format("MM/DD/YYYY"), sort)
+        statisticServce.getStatisticChart(values[0].format("MM/DD/YYYY"), values[1].format("MM/DD/YYYY"), sort)
             .then((rs) => {
                 setChartData(rs.data)
                 setIsLoadingChart(false)
@@ -212,7 +210,7 @@ export default function UserStatistic() {
     const [statisticDatas, setStatisticDatas] = useState([])
     const loadStatictisData = () => {
         setIsLoadingStatisticData(true)
-        statisticService.getStatisticData(values[0].format("MM/DD/YYYY"), values[1].format("MM/DD/YYYY"), page, rowsPerPage, sortBy, sortType)
+        statisticServce.getStatisticData(values[0].format("MM/DD/YYYY"), values[1].format("MM/DD/YYYY"), page, rowsPerPage, sortBy, sortType)
             .then((rs) => {
                 setStatisticData(rs.data)
                 setStatisticDatas(rs.data.data)
@@ -223,7 +221,7 @@ export default function UserStatistic() {
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
         setIsLoadingStatisticData(true)
-        statisticService.getStatisticData(values[0].format("MM/DD/YYYY"), values[1].format("MM/DD/YYYY"), newPage, rowsPerPage, sortBy, sortType)
+        statisticServce.getStatisticData(values[0].format("MM/DD/YYYY"), values[1].format("MM/DD/YYYY"), newPage, rowsPerPage, sortBy, sortType)
             .then((rs) => {
                 console.log(newPage, rs.data)
                 setStatisticData(rs.data)
@@ -434,3 +432,5 @@ export default function UserStatistic() {
         </Box>
     )
 }
+
+export { vn_en_lowercase }
