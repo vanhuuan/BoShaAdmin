@@ -20,6 +20,20 @@ header {
     align-items: center;
 }
 
+.container-header {
+    background-color: rgba(204, 204, 204, 0.5);
+    padding: 0.5em 1em;
+    border-bottom: 1px solid #ccc;
+}
+
+.container-body {
+    padding: 1em;
+}
+
+.container-bottom {
+    border-top: 1px solid #ccc;
+}
+
 .brand {
     color: #89D5C9;
     font-family: 'Irish Grover';

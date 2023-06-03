@@ -80,10 +80,6 @@ const Chapter = () => {
                 const date1 = new Date(chapterDetail.updated);
                 let a = moment().from(date1);
                 setDateUpdate(a)
-                bookService.bookStatus(rs.data.bookId).then((rs) => {
-                    console.log(rs)
-                    setStatus(rs)
-                }).catch(console.error)
                 setIsLoading(false)
             }
         ).catch((err) => {

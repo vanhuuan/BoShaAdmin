@@ -55,7 +55,7 @@ const EditCategory = ({ id, isOpen, handleClose }) => {
         <>
             <Dialog open={isOpen} onClose={handleClose}>
                 {isLoading === true ? <DialogContent><CircularProgress /></DialogContent> : <DialogContent>
-                    <DialogTitle>Chỉnh sửa thông tin</DialogTitle>
+                    <DialogTitle>Chỉnh sửa thông tin thể loại</DialogTitle>
                     <DialogContent>
                         <TextField
                             autoFocus

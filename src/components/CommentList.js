@@ -1,13 +1,7 @@
 import React, { useEffect, useState, forwardRef } from "react";
-import ReactDOM from "react-dom";
-import { CircularProgress, Pagination, Typography } from "@mui/material";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import FormHelperText from '@mui/joy/FormHelperText';
-import Textarea from '@mui/joy/Textarea';
-
-import { Divider, Avatar, Grid, Paper } from "@mui/material";
+import { CircularProgress, IconButton, Pagination, Typography } from "@mui/material";
+import { Delete } from "@mui/icons-material"
+import { Avatar, Grid, Paper } from "@mui/material";
 
 import "../css/CommentList.css";
 import { commentService } from "../services/comment.services";
@@ -58,7 +52,7 @@ const CommentList = forwardRef((props, ref) =>  {
         setPage(p);
     };
 
-    useEffect(() => {
+    const fetchData = () => {
         setIsLoading(true)
         commentService.getChapterComment(id, page, 10).then((rs) => {
             console.log(rs.data)
@@ -68,7 +62,17 @@ const CommentList = forwardRef((props, ref) =>  {
         }).catch((err) => {
             console.log(err)
         })
+    }
+
+    useEffect(() => {
+        fetchData()
     }, [page])
+
+    const onCommentDelete = (id) => {
+        commentService.deleteComment(id).then((rs) => {
+            fetchData()
+        })
+    }
 
     return (
         <div style={{ padding: 14 }} className="App" ref={ref}>
@@ -80,6 +84,7 @@ const CommentList = forwardRef((props, ref) =>  {
 
                             <Grid item>
                                 <Avatar alt={item.userName} src={item.userAva} />
+                                <IconButton color="error" onClick={(e) => { onCommentDelete(item.id)}}> <Delete> </Delete></IconButton>
                             </Grid>
                             <Grid justifyContent="left" item xs zeroMinWidth>
                                 <h4 style={{ margin: 0, textAlign: "left" }}>{item.userName}</h4>

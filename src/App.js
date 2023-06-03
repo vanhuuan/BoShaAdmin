@@ -43,8 +43,8 @@ function App() {
           <Route path='/admins' element={<DefaultLayout><Admins/></DefaultLayout>}></Route>
           <Route path='/categories' element={<DefaultLayout><Categories/></DefaultLayout>}></Route>
           <Route path='/books' element={<DefaultLayout><Books/></DefaultLayout>}></Route>
-          <Route path="/book/:id" element={<><DefaultLayout /><BookDetail /></>}></Route>
-          <Route path="/chapter/:id" element={<><DefaultLayout /><Chapter /></>}></Route>
+          <Route path="/book/:id" element={<DefaultLayout><BookDetail /></DefaultLayout>}></Route>
+          <Route path="/chapter/:id" element={<DefaultLayout><Chapter /></DefaultLayout>}></Route>
           <Route path='*' element={<><Header /><PageNotFound /></>} />
         </Routes>
       </BrowserRouter>

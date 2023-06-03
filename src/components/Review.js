@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { CircularProgress, Pagination } from "@mui/material";
+import { Button, CircularProgress, IconButton, Pagination } from "@mui/material";
 
 import { Avatar, Grid, Paper } from "@mui/material";
 import { commentService } from "../services/comment.services";
-import { StarBorderOutlined } from "@mui/icons-material";
+import { Delete, StarBorderOutlined } from "@mui/icons-material";
 
 const moment = require('moment');
 moment.updateLocale('vi', {
@@ -55,7 +55,7 @@ function ReviewList(props) {
         setPage(p);
     };
 
-    useEffect(() => {
+    const fetchData = () => {
         setIsLoading(true)
         var rs = commentService.getReviewCommentBook(id, page, 10).then((rs) => {
             console.log(rs)
@@ -63,7 +63,17 @@ function ReviewList(props) {
             setTotal(rs.data.count)
             setIsLoading(false)
         }).catch((err) => { console.log(err)})
+    }
+
+    useEffect(() => {
+        fetchData()
     }, [page])
+
+    const onDeleteReview = (id) => {
+        commentService.deleteReview(id).then((rs) => {
+            fetchData()
+        })
+    }
 
     return (
         <div style={{ padding: 14 }} className="App">
@@ -75,6 +85,7 @@ function ReviewList(props) {
 
                             <Grid item>
                                 <Avatar alt={item.userName} src={item.userAva} />
+                                <IconButton color="error" onClick={(e) => { onDeleteReview(item.id)}}> <Delete> </Delete></IconButton>
                             </Grid>
                             <Grid justifyContent="left" item xs zeroMinWidth>
                                 <h4 style={{ margin: 0, textAlign: "left" }}>{item.userName}</h4>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Box, Button, Divider, Paper, TextField, Typography } from '@mui/material'
 import { authService } from '../../services/auth.services';
-import { NavLink, useNavigate } from "react-router-dom"
-import { createSearchParams, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+import { useSearchParams } from "react-router-dom";
 const ChangePassword = () => {
   const [password, setPassword] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
