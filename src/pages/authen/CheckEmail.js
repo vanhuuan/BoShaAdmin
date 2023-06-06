@@ -2,13 +2,24 @@ import { Box, Button, Divider, Paper, TextField, Typography } from '@mui/materia
 import React, { useState } from 'react'
 import { authService } from '../../services/auth.services';
 import { NavLink, useNavigate } from "react-router-dom"
+import { Mail } from '@mui/icons-material';
+import { NotificationManager } from 'react-notifications';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('')
   let navigate = useNavigate()
+  const [check, setCheck] = useState(false)
+
+  function isValidEmail(email) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+
   const handleSendEmail = () => {
-    authService.forgetPass(email);
-    alert("Vui lòng kiểm tra Email đã đăng ký để có hướng dẫn tiếp theo");
-    // navigate("/login")
+    if(isValidEmail(Mail)){
+      authService.forgetPass(email);
+      alert("Vui lòng kiểm tra Email đã đăng ký để có hướng dẫn tiếp theo");
+    }else{
+      NotificationManager.error("Sai định dạng Email", "Sai định dạng", 2000)
+    }
   }
   return (
     <div style={{ height: '100vh', display: 'flex', alignItems: 'center' }}>
@@ -26,7 +37,15 @@ const ForgotPassword = () => {
           fullWidth
           margin="normal" type={'email'}
           variant='outlined' placeholder='Email'
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => { 
+            if(!isValidEmail(e.target.value)){
+              setCheck(true)
+            }else{
+              setCheck(false)
+            }
+            setEmail(e.target.value)} 
+          }
+          error = {check}
         ></TextField>
         <Divider fullWidth sx={{ marginY: 2 }}></Divider>
 
