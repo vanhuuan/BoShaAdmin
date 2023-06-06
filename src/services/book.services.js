@@ -13,7 +13,7 @@ export const bookService = {
             });
         }
 
-        const url = `${baseURL}/Books${textCate}&Name=${name}&State=${state}&NotState=Susspend&MinPrice=${min}&MaxPrice=${max}&PageNumber=${pageNumber}&PageSize=${pageSize}&QueryType=fgsdgsdfgdfg&QueryString=sdfgsdfgdfg&SortBy=${sort}&SortType=${sortType}`
+        const url = `${baseAdminURL}/Books${textCate}&Name=${name}&State=${state}&NotState=&MinPrice=${min}&MaxPrice=${max}&PageNumber=${pageNumber}&PageSize=${pageSize}&QueryType=fgsdgsdfgdfg&QueryString=sdfgsdfgdfg&SortBy=${sort}&SortType=${sortType}`
         console.log(url)
         return await api.get(url)
     },
