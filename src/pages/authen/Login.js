@@ -51,7 +51,7 @@ const Login = () => {
       const login = await authService.login(account);
       if (login.data) {
         // check role
-        var role = localStorage.getItem("Roles")
+        var role = login.data.roles
         console.log("Login data: ", login.data)
         if (role.includes("Admin")) {
           localStorage.setItem("UserId", login.data.id)
@@ -61,6 +61,7 @@ const Login = () => {
           localStorage.setItem("Roles", login.data.roles)
           navigate("/")
         } else {
+          NotificationManager.error("Bạn không có quyền", "UnAuthorized", 2000)
           localStorage.clear()
           navigate("/login")
         }
