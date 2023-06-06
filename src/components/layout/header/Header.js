@@ -25,14 +25,13 @@ const settings = ['Tài khoản', 'Đăng xuất'];
 
 function Header() {
     let navigate = useNavigate()
-    let isLogin = false;
     const userName = localStorage.getItem("Name")
     const [ava, setAva] = useState("")
     const [isLoadingAva, setIsLoadingAva] = useState(true)
 
 
-    if (userName) {
-        isLogin = true
+    if (!userName) {
+        navigate("/logIn")
     }
 
     const logout = () => {
@@ -44,7 +43,6 @@ function Header() {
         navigate("/logIn")
     }
 
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenUserMenu = (event) => {
