@@ -195,13 +195,14 @@ const Books = () => {
                             sx={{ marginRight: "0.5em", minWidth: "15em" }}
                         >
                             <MenuItem value={"Newest"}>Cập nhật mới</MenuItem>
-                            <MenuItem selected value={"HotAll"}>Xem nhiều nhất</MenuItem>
+                            <MenuItem selected value={"HotAllTime"}>Xem nhiều nhất</MenuItem>
                             <MenuItem value={"HotDay"}>Xem nhiều nhất hôm nay</MenuItem>
                             <MenuItem value={"HotWeek"}>Xem nhiều nhất tuần</MenuItem>
                             <MenuItem value={"HotMonth"}>Xem nhiều nhất tháng</MenuItem>
                             <MenuItem value={"MostFollow"}>Theo dõi nhiều nhất</MenuItem>
                             <MenuItem value={"MostComment"}>Bình luận nhiều nhất</MenuItem>
                             <MenuItem value={"MostChapter"}>Số chapter nhiều</MenuItem>
+                            <MenuItem value={"Revenue"}>Doanh thu</MenuItem>
                         </Select>
                         <Select
                             id="sortType"
