@@ -31,7 +31,7 @@ const Books = () => {
 
     const onBookClick = (e, row) => {
         e.stopPropagation();
-        navigate('/book/'+ row.id);
+        navigate('/book/' + row.id);
     };
 
     const onDeleteClick = async (e, row) => {
@@ -55,7 +55,18 @@ const Books = () => {
         },
         { field: 'numOflike', headerName: 'Số lượt theo dõi', width: 90, sortable: false },
         { field: 'numOfView', headerName: 'Số lượt xem', width: 90, sortable: false },
-        { field: 'state', headerName: 'Trạng thái', width: 150, sortable: false },
+        {
+            field: 'state', headerName: 'Trạng thái', width: 150, sortable: false,
+            renderCell: (params) => {
+                switch(params.row.state){
+                    case "Finish" : return <Typography>Đã hoàn thành</Typography>
+                    case "Unfinish" : return <Typography>Chưa hoàn thành</Typography>
+                    case "Susspend" : return <Typography>Tạm hoãn</Typography>
+                    case "Block" : return <Typography>Đã chặn</Typography>
+                    default : return <Typography>Lỗi trạng thái</Typography>
+                }
+            }
+        },
         {
             field: 'price', headerName: 'Giá', width: 150, sortable: false,
             renderCell: (params) => {
