@@ -122,7 +122,7 @@ function Header() {
                         BOSHA-ADMIN
                     </Typography>
 
-                    {isLogin ?
+                    {userName ?
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Mở trang của bạn">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
