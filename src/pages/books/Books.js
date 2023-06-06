@@ -126,7 +126,7 @@ const Books = () => {
         if (queryType.toString() == "All") {
             response = await bookService.findBook(pageState.page, pageState.pageSize, "", categories, state, min, max, sortBy, sortType)
         } else if (queryString) {
-            response = await bookService.findBook(pageState.page, pageState.pageSize, categories, state, min, max, queryString, sortBy, sortType)
+            response = await bookService.findBook(pageState.page, pageState.pageSize, queryString, categories, state, min, max, sortBy, sortType)
             if (response.data) {
                 const json = response.data
                 setPageState(old => ({ ...old, isLoading: false, data: json.cards, total: json.total }))
