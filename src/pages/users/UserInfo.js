@@ -45,7 +45,7 @@ export default function UserInfo() {
 
     useEffect(() => {
         setIsLoading(true)
-        userService.getUserInfo().then((rs) => {
+        userService.getUserInfoById(localStorage.getItem("UserId")).then((rs) => {
             console.log(rs.data)
             setUserInfo(rs.data)
             firebaseService.getAva(rs.data.id, getAva)
@@ -61,7 +61,7 @@ export default function UserInfo() {
                 </Grid>
                 <Grid sm="10" md="8" lg="6">
                     {isLoading === false ?
-                        <div className="container" padding={"1em"}>
+                        <div className="container" style={{ display: "block"}} padding={"1em"}>
                             <div className='container-header' style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Typography sx={{ typography: { md: 'h5', sm: 'h10' } }}> <Person color="primary" />Thông tin tài khoản </Typography>
                             </div>
