@@ -12,9 +12,9 @@ import { LunchDining, Info, ListAlt, Discount, AutoGraph, Person, Store, AdminPa
 import { Toolbar } from '@mui/material';
 
 const Sidebar = () => {
-  const iconColor = '#89D5C9'
+  const iconColor = '#4F709C'
   let activeStyle = {
-    background: '#89D5C9',
+    background: '#4F709C',
     color: 'white',
     fontWeight: 'bold',
     borderRadius: 10,

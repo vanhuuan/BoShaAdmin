@@ -20,7 +20,7 @@ import Grid from '@mui/material/Grid';
 import { Check, CheckBox, CheckBoxOutlineBlank, Label, Unarchive } from '@mui/icons-material';
 import { userService } from "../../services/userServices";
 
-const blue = '#89D5C9'
+const blue = '#4F709C'
 const orange = '#FF8357'
 
 const Users = () => {

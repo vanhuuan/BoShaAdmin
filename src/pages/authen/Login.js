@@ -122,7 +122,7 @@ const Login = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon sx={{ color: "#89D5C9" }} />
+                  <EmailIcon sx={{ color: "#4F709C" }} />
                 </InputAdornment>
               ),
             }}></TextField>
@@ -133,11 +133,11 @@ const Login = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <PasswordIcon sx={{ color: "#89D5C9" }} />
+                  <PasswordIcon sx={{ color: "#4F709C" }} />
                 </InputAdornment>
               ),
             }}></TextField>
-          <Button sx={{ marginTop: 2, borderRadius: 5, backgroundColor: "#89D5C9", fontSize: 16, fontStyle: "bold" }} variant="contained" onClick={handleLogin} >ĐĂNG NHẬP</Button>
+          <Button sx={{ marginTop: 2, borderRadius: 5, backgroundColor: "#4F709C", fontSize: 16, fontStyle: "bold" }} variant="contained" onClick={handleLogin} >ĐĂNG NHẬP</Button>
           <a style={{ marginTop: 10, fontSize: 13, fontStyle: "bold" }} href="/forgotPassword">Quên mật khẩu?</a>
           <Divider >Hoặc</Divider>
           <GoogleOAuthProvider clientId={cleintId}>

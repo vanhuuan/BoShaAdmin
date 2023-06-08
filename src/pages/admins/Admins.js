@@ -21,7 +21,7 @@ import { Label } from '@mui/icons-material';
 import { userService } from '../../services/userServices';
 import { adminServices } from '../../services/admin.services';
 
-const blue = '#89D5C9'
+const blue = '#4F709C'
 const orange = '#FF8357'
 
 const Admins = () => {

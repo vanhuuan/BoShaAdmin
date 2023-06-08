@@ -91,7 +91,7 @@ function DashBoard() {
             theme: {
                 monochrome: {
                     enabled: true,
-                    color: '#89D5C9',
+                    color: '#4F709C',
                     shadeTo: 'light',
                     shadeIntensity: 0.65
                 }

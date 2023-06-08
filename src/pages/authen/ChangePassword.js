@@ -63,7 +63,7 @@ const ChangePassword = () => {
           onClick={handleChangePass}
           sx={{
             borderRadius: 1,
-            backgroundColor: "#89D5C9",
+            backgroundColor: "#4F709C",
             fontSize: 16,
             fontStyle: "bold"
           }}

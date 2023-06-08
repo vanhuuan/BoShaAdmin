@@ -22,7 +22,7 @@ import { userService } from "../../services/userServices";
 import { bookService } from "../../services/book.services";
 import abbrNum from "../../services/numberHelper";
 
-const blue = '#89D5C9'
+const blue = '#4F709C'
 const orange = '#FF8357'
 
 const Books = () => {

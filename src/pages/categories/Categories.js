@@ -14,7 +14,7 @@ import theme from "../../theme";
 import EditCategory from "./EditCategory";
 import AddCategory from "./AddCategory";
 
-const blue = '#89D5C9'
+const blue = '#4F709C'
 
 const Categories = () => {
     const navigate = useNavigate()
