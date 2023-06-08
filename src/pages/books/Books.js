@@ -21,6 +21,7 @@ import { Check, CheckBox, CheckBoxOutlineBlank, Label, StarBorder, Unarchive } f
 import { userService } from "../../services/userServices";
 import { bookService } from "../../services/book.services";
 import abbrNum from "../../services/numberHelper";
+import { userBookService } from "../../services/userBook.services";
 
 const blue = '#4F709C'
 const orange = '#FF8357'
@@ -58,12 +59,12 @@ const Books = () => {
         {
             field: 'state', headerName: 'Trạng thái', width: 150, sortable: false,
             renderCell: (params) => {
-                switch(params.row.state){
-                    case "Finish" : return <Typography>Đã hoàn thành</Typography>
-                    case "Unfinish" : return <Typography>Chưa hoàn thành</Typography>
-                    case "Susspend" : return <Typography>Tạm hoãn</Typography>
-                    case "Block" : return <Typography>Đã chặn</Typography>
-                    default : return <Typography>Lỗi trạng thái</Typography>
+                switch (params.row.state) {
+                    case "Finish": return <Typography>Đã hoàn thành</Typography>
+                    case "Unfinish": return <Typography>Chưa hoàn thành</Typography>
+                    case "Susspend": return <Typography>Tạm hoãn</Typography>
+                    case "Block": return <Typography>Đã chặn</Typography>
+                    default: return <Typography>Lỗi trạng thái</Typography>
                 }
             }
         },
@@ -120,13 +121,15 @@ const Books = () => {
     const [queryString, setQueryString] = useState("All")
     const [queryType, setQueryType] = useState("All")
     const [sortType, setSortType] = useState("Asc")
-    const [sortBy, setSortBy] = useState("HotAll")
+    const [sortBy, setSortBy] = useState("HotAllTime")
     const [includeAuthor, setIncludeAuthor] = useState(true)
+
     const [min, setMin] = useState(0)
     const [max, setMax] = useState(999999999)
     const [listCategories, setListCategories] = useState([])
     const [categories, setCategories] = useState([])
     const [state, setState] = useState("All")
+    const [cate, setCate] = useState("All")
 
     const fetchData = async () => {
         setPageState(old => ({ ...old, isLoading: true }))
@@ -154,6 +157,9 @@ const Books = () => {
     }
     useEffect(() => {
         fetchData()
+        userBookService.categories().then((rs) => {
+            setListCategories(rs.data)
+        })
     }, [pageState.page, pageState.pageSize])
     return (
         <div>
@@ -183,6 +189,50 @@ const Books = () => {
                             }}
                             sx={{ ml: 2 }}
                         />
+                    </Box>
+                    <Box>
+                        <Typography sx={{ ml: 2, mb: 1 }}>Thể loại: </Typography>
+                        <Select
+                            id="cate"
+                            value={cate}
+                            onChange={e => { 
+                                setCate(e.target.value)
+                                if(e.target.value !== "All"){
+                                    setCategories([e.target.value])
+                                }else{
+                                    setCategories([])
+                                }
+                             }}
+                            className='option'
+                            size="small"
+                            sx={{ marginRight: "0.5em", minWidth: "15em" }}
+                        >
+                            <MenuItem value={"All"}>Tất cả</MenuItem>
+                            {
+                                listCategories.map(x => {
+                                    return (
+                                        <MenuItem value={x.id}>{x.name}</MenuItem>
+                                    )
+                                })
+                            }
+                        </Select>
+                    </Box>
+                    <Box>
+                        <Typography sx={{ ml: 2, mb: 1 }}>Trạng thái: </Typography>
+                        <Select
+                            id="state"
+                            value={state}
+                            onChange={e => { setState(e.target.value) }}
+                            className='option'
+                            size="small"
+                            sx={{ marginRight: "0.5em", minWidth: "15em" }}
+                        >
+                            <MenuItem value={"All"}>Tất cả</MenuItem>
+                            <MenuItem value={"Unfinish"}>Chưa hoàn thành</MenuItem>
+                            <MenuItem value={"Finish"}>Đã hoàn thành</MenuItem>
+                            <MenuItem value={"Susspend"}>Tạm hoãn</MenuItem>
+                            <MenuItem value={"Block"}>Bị chặn</MenuItem>
+                        </Select>
                     </Box>
                     <Box>
                         <Typography sx={{ ml: 2, mb: 1 }}>Sắp xếp theo: </Typography>

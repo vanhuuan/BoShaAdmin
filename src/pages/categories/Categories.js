@@ -15,6 +15,7 @@ import EditCategory from "./EditCategory";
 import AddCategory from "./AddCategory";
 
 const blue = '#4F709C'
+const orange = '#FF8357'
 
 const Categories = () => {
     const navigate = useNavigate()
@@ -58,9 +59,8 @@ const Categories = () => {
             sortable: false,
             width: 150,
             renderCell: (params) => {
-                return <IconButton sx={{ color: blue }}
-                    onClick={(e) => onDeleteClick(e, params.row)}
-                    variant="contained">
+                return <IconButton sx={{ color: orange }}
+                    onClick={(e) => onDeleteClick(e, params.row)}>
                     <DeleteIcon></DeleteIcon>
                 </IconButton>
             }
