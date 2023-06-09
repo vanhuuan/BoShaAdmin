@@ -265,7 +265,7 @@ export default function UserStatistic(props) {
                                 </Grid>
                                 <Grid item xl={3} lg={3} md={6} sm={6} xs={12}>
                                     <CardSummary
-                                        title="Thu nhập thực tế của bạn "
+                                        title="Thu nhập thực tế của người dùng "
                                         value={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
                                             .format(cardData.afterRevenue)}
                                         footer={<div> 80% Tổng thu nhập từ bán truyện  </div>}
@@ -305,7 +305,7 @@ export default function UserStatistic(props) {
                                         />
                                     }
                                 </Grid> </>
-                                : <LinearProgress />}
+                                : <LinearProgress variant="primary" />}
                             {isLoadingChart === false ?
                                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                     <FormControl sx={{ m: 1, minWidth: 300 }}>
@@ -328,7 +328,7 @@ export default function UserStatistic(props) {
 
                                     <Income chartsData={chartData} title={`Thống kê ${sortChart}`} label={`${sortChart}`}></Income>
                                 </Grid>
-                                : <LinearProgress />}
+                                : <LinearProgress variant="primary" />}
                             {showMore ?
                                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                     <FormControl sx={{ m: 1, minWidth: 300 }}>

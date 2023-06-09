@@ -44,20 +44,22 @@ const Books = () => {
     };
 
     const columns = [
-        { field: 'stt', headerName: 'STT', width: 50, sortable: false },
+        { field: 'stt', headerName: 'STT', width: 50, sortable: false, align:"center" },
         { field: 'name', headerName: 'Tên truyện', width: 300, sortable: false },
-        { field: 'numOfChapter', headerName: 'Số chapter', width: 90, sortable: false },
-        { field: 'numOfReview', headerName: 'Số lượt đánh giá', width: 90, sortable: false },
+        { field: 'numOfChapter', headerName: 'Số chapter', width: 90, sortable: false, align:"center" },
+        { field: 'numOfReview', headerName: 'Số lượt đánh giá', width: 150, sortable: false, align:"center" },
         {
-            field: 'star', headerName: 'Đánh giá', width: 90, sortable: false,
+            field: 'star', headerName: 'Đánh giá', width: 90, sortable: false, align:"center",
             renderCell: (params) => {
-                return <Typography>{params.row.numOfReview} <StarBorder /></Typography>
+                if (params.row.numOfReview > 0)
+                    return <Typography>{params.row.numOfStar / params.row.numOfReview } <StarBorder /></Typography>
+                else return <Typography>{0} <StarBorder /></Typography>
             }
         },
-        { field: 'numOflike', headerName: 'Số lượt theo dõi', width: 90, sortable: false },
-        { field: 'numOfView', headerName: 'Số lượt xem', width: 90, sortable: false },
+        { field: 'numOflike', headerName: 'Số lượt theo dõi', width: 150, sortable: false, align:"center" },
+        { field: 'numOfView', headerName: 'Số lượt xem', width: 90, sortable: false, align:"center" },
         {
-            field: 'state', headerName: 'Trạng thái', width: 150, sortable: false,
+            field: 'state', headerName: 'Trạng thái', width: 150, sortable: false, align:"center",
             renderCell: (params) => {
                 switch (params.row.state) {
                     case "Finish": return <Typography>Đã hoàn thành</Typography>
@@ -69,7 +71,7 @@ const Books = () => {
             }
         },
         {
-            field: 'price', headerName: 'Giá', width: 150, sortable: false,
+            field: 'price', headerName: 'Giá', width: 150, sortable: false, align:"right",
             renderCell: (params) => {
                 return <Typography>{abbrNum(params.row.price)}</Typography>
             }
@@ -80,6 +82,7 @@ const Books = () => {
             description: 'Xem danh thông tin chi tiết truyện',
             sortable: false,
             width: 90,
+            align:"center",
             renderCell: (params) => {
                 return <IconButton sx={{ color: blue }}
                     onClick={(e) => onBookClick(e, params.row)}
@@ -195,14 +198,14 @@ const Books = () => {
                         <Select
                             id="cate"
                             value={cate}
-                            onChange={e => { 
+                            onChange={e => {
                                 setCate(e.target.value)
-                                if(e.target.value !== "All"){
+                                if (e.target.value !== "All") {
                                     setCategories([e.target.value])
-                                }else{
+                                } else {
                                     setCategories([])
                                 }
-                             }}
+                            }}
                             className='option'
                             size="small"
                             sx={{ marginRight: "0.5em", minWidth: "15em" }}

@@ -122,16 +122,18 @@ function DashBoard() {
 
 
     useEffect(() => {
-        statisticServce.getStatisticYear(2023, "").then((rs) => {
-            console.log(rs.data)
-            if (rs.data) {
-                rs.data.forEach(element => {
-                    setRevenueList(old => [...old, element.value]);
-                });
+        if (isLoading === true) {
+            statisticServce.getStatisticYear(2023, "").then((rs) => {
+                console.log(rs.data)
+                if (rs.data) {
+                    rs.data.forEach(element => {
+                        setRevenueList(old => [...old, element.value]);
+                    });
 
-            }
-            setIsLoading(false)
-        })
+                }
+                setIsLoading(false)
+            })
+        }
         loadStatisticCard()
     }, [values])
 
@@ -155,7 +157,12 @@ function DashBoard() {
             justifyContent={'center'}
             sx={{ backgroundColor: 'white', boxShadow: '0px 0px 3px grey', padding: "2em" }}>
             <Typography sx={{ marginTop: 1, textAlign: 'center', fontWeight: 'bold' }}>Doanh thu của hệ thống</Typography>
-            <div style={{ display: "flex" }}>
+            {
+                isLoading ? <CircularProgress sx={{ alignSelf: 'center' }} /> :
+                    <ReactApexChart options={c.options} series={c.series} type="line" height={"70%"} />
+            }
+            <Divider variant="middle" sx={{ margin: "1em 0" }}></Divider>
+            <div style={{ display: "flex", marginBottom: "1em" }}>
                 <Typography>Khoảng thời gian thống kê từ </Typography>
                 <DatePicker
                     value={values}
@@ -170,11 +177,6 @@ function DashBoard() {
                 />
                 <CalendarMonth style={{ margin: "0 1em" }} />
             </div>
-            {
-                isLoading ? <CircularProgress sx={{ alignSelf: 'center' }} /> :
-                    <ReactApexChart options={c.options} series={c.series} type="line" height={"70%"} />
-            }
-            <Divider variant="middle" sx={{ margin: "1em 0" }}></Divider>
             {isLoadingCard === false ? <Grid container spacing={3}>
                 <Grid item xl={3} lg={3} md={6} sm={6} xs={12}>
                     <CardSummary

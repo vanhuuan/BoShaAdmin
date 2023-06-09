@@ -49,7 +49,7 @@ const Users = () => {
     };
 
     const columns = [
-        { field: 'stt', headerName: 'STT', width: 50, sortable: false },
+        { field: 'stt', headerName: 'STT', width: 50, sortable: false, align:"center" },
         { field: 'name', headerName: 'Tên', width: 200, sortable: false },
         { field: 'email', headerName: 'Email', width: 200, sortable: false },
         {
@@ -73,6 +73,7 @@ const Users = () => {
             description: 'Xem danh thông tin chi tiết người dùng',
             sortable: false,
             width: 90,
+            align:"center",
             renderCell: (params) => {
                 return <IconButton sx={{ color: blue }}
                     onClick={(e) => onUserClick(e, params.row)}
@@ -87,6 +88,7 @@ const Users = () => {
             description: 'Xem danh sách đơn hàng.',
             sortable: false,
             width: 90,
+            align:"center",
             renderCell: (params) => {
                 return (
                     <div>

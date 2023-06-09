@@ -42,7 +42,7 @@ const Admins = () => {
     }
 
     const columns = [
-        { field: 'stt', headerName: 'STT', width: 50, sortable: false },
+        { field: 'stt', headerName: 'STT', width: 50, sortable: false, align:"center" },
         { field: 'name', headerName: 'Tên', width: 200, sortable: false },
         { field: 'email', headerName: 'Email', width: 200, sortable: false },
         {
@@ -58,6 +58,7 @@ const Admins = () => {
             description: 'Action can perform',
             sortable: false,
             width: 100,
+            align:"center",
             renderCell: (params) => {
                 return (
                     <div>

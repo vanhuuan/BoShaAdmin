@@ -35,7 +35,7 @@ const Categories = () => {
     };
 
     const columns = [
-        { field: 'stt', headerName: 'STT', width: 100, sortable: false },
+        { field: 'stt', headerName: 'STT', width: 100, sortable: false, align:"center" },
         { field: 'name', headerName: 'Tên', width: 300, sortable: false },
         { field: 'description', headerName: 'Miêu tả', width: 500, sortable: false },
         {
@@ -44,6 +44,7 @@ const Categories = () => {
             description: 'Chỉnh sửa thể loại',
             sortable: false,
             width: 150,
+            align:"center",
             renderCell: (params) => {
                 return <IconButton sx={{ color: blue }}
                     onClick={(e) => onEditClick(e, params.row)}
@@ -58,6 +59,7 @@ const Categories = () => {
             description: 'Xóa thể loại',
             sortable: false,
             width: 150,
+            align:"center",
             renderCell: (params) => {
                 return <IconButton sx={{ color: orange }}
                     onClick={(e) => onDeleteClick(e, params.row)}>
