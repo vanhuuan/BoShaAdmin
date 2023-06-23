@@ -34,7 +34,7 @@ const Users = () => {
 
     const onChangeStatusClick = async (e, row) => {
         e.stopPropagation();
-        if (window.confirm(`Bạn có chắc muốn đổi trạng thái người dùng ${row.name}`)) {
+        if (window.confirm(`Bạn có chắc muốn đổi ${row.status === "Active"? "" : "bỏ"} chặn người dùng ${row.name}`)) {
             await userService.changeUserState(row.userId)
             fetchData()
         }
