@@ -68,7 +68,7 @@ const columns = [
     },
     {
         id: 'NumOfChapter',
-        label: 'Số chương',
+        label: 'Số tập',
         minWidth: 100,
         align: 'right',
         format: (value) => value.toLocaleString('en-US'),
