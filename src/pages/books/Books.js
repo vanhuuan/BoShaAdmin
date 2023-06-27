@@ -253,7 +253,7 @@ const Books = () => {
                             <MenuItem value={"HotWeek"}>Xem nhiều nhất tuần</MenuItem>
                             <MenuItem value={"HotMonth"}>Xem nhiều nhất tháng</MenuItem>
                             <MenuItem value={"MostFollow"}>Theo dõi nhiều nhất</MenuItem>
-                            <MenuItem value={"MostComment"}>Bình luận nhiều nhất</MenuItem>
+                            <MenuItem value={"MostComment"}>Đánh giá nhiều nhất</MenuItem>
                             <MenuItem value={"MostChapter"}>Số chapter nhiều</MenuItem>
                             <MenuItem value={"Revenue"}>Doanh thu</MenuItem>
                         </Select>

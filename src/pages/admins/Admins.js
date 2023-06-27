@@ -20,6 +20,7 @@ import Grid from '@mui/material/Grid';
 import { Label } from '@mui/icons-material';
 import { userService } from '../../services/userServices';
 import { adminServices } from '../../services/admin.services';
+import AddAdmin from './AddAdmin';
 
 const blue = '#4F709C'
 const orange = '#FF8357'
@@ -34,15 +35,22 @@ const Admins = () => {
     };
 
     const onMakeAdminClick = (event) => {
-        const enteredName = prompt('Please enter the admin\'s email')
-        if (enteredName) {
-            adminServices.makeAdmin(enteredName)
-            fetchData()
-        }
+        // const enteredName = prompt('Thêm người quản trị')
+        // if (enteredName) {
+        //     adminServices.makeAdmin(enteredName)
+        //     fetchData()
+        // }
+        setAddOpen(true)
+    }
+
+    const [addOpen, setAddOpen] = useState(false);
+
+    const handleClose = () => {
+        setAddOpen(false)
     }
 
     const columns = [
-        { field: 'stt', headerName: 'STT', width: 50, sortable: false, align:"center" },
+        { field: 'stt', headerName: 'STT', width: 50, sortable: false, align: "center" },
         { field: 'name', headerName: 'Tên', width: 200, sortable: false },
         { field: 'email', headerName: 'Email', width: 200, sortable: false },
         {
@@ -58,7 +66,7 @@ const Admins = () => {
             description: 'Action can perform',
             sortable: false,
             width: 100,
-            align:"center",
+            align: "center",
             renderCell: (params) => {
                 return (
                     <div>
@@ -127,10 +135,13 @@ const Admins = () => {
                         marginBottom: 2,
                         alignSelf: 'end'
                     }}
-                >Thêm Admin</Button>
+                >Thêm người quản trị</Button>
+                <AddAdmin
+                    isOpen={addOpen}
+                    handleClose={handleClose} />
                 <Paper
                     component="form"
-                    sx={{display: 'flex', marginBottom: "0.5em", padding: "0.5em", justifyContent: "space-between"}}
+                    sx={{ display: 'flex', marginBottom: "0.5em", padding: "0.5em", justifyContent: "space-between" }}
                 >
                     <Box>
                         <Typography sx={{ ml: 2, mb: 1 }}>Lọc theo: </Typography>
@@ -177,7 +188,7 @@ const Admins = () => {
                             onChange={e => { setSortBy(e.target.value) }}
                             className='option'
                             size="small"
-                            sx={{ marginRight: "0.5em"}}
+                            sx={{ marginRight: "0.5em" }}
                         >
                             <MenuItem value={"Name"}>Tên</MenuItem>
                             <MenuItem value={"PhoneNumber"}>Số điện thoại</MenuItem>
