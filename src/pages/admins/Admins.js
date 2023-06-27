@@ -56,7 +56,7 @@ const Admins = () => {
         {
             field: 'phoneNumber',
             headerName: 'Số điện thoại',
-            width: 120,
+            width: 150,
             sortable: false, 
             headerAlign: 'center',
             align: "center"

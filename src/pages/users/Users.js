@@ -55,7 +55,7 @@ const Users = () => {
         {
             field: 'phoneNumber',
             headerName: 'Số điện thoại',
-            width: 110,
+            width: 150,
             sortable: false,
         },
         { field: 'isAuthor', headerName: 'Tác giả', width: 100, sortable: false, headerAlign: 'center', align: "center",
