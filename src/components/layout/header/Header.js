@@ -83,7 +83,7 @@ function Header() {
         <AppBar position="fix" sx={{ backgroundColor: "#4F709C",  zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Container maxWidth="xl" >
                 <Toolbar disableGutters sx={{ justifyContent: "space-between"}}>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} onClick={() => { navigate("/") }} />
+                    <span></span>
                     <Typography
                         variant="h6"
                         noWrap
