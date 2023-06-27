@@ -50,23 +50,26 @@ const Admins = () => {
     }
 
     const columns = [
-        { field: 'stt', headerName: 'STT', width: 50, sortable: false, align: "center" },
+        { field: 'stt', headerName: 'STT', width: 50, sortable: false, align: "center", headerAlign: 'center' },
         { field: 'name', headerName: 'Tên', width: 200, sortable: false },
         { field: 'email', headerName: 'Email', width: 200, sortable: false },
         {
             field: 'phoneNumber',
             headerName: 'Số điện thoại',
             width: 120,
-            sortable: false,
+            sortable: false, 
+            headerAlign: 'center',
+            align: "center"
         },
-        { field: 'status', headerName: 'Trạng thái', width: 200, sortable: false },
+        { field: 'status', headerName: 'Trạng thái', width: 200, sortable: false, align: "center", headerAlign: 'center' },
         {
             field: 'Action',
             headerName: 'Action',
             description: 'Action can perform',
             sortable: false,
             width: 100,
-            align: "center",
+            align: "center", 
+            headerAlign: 'center',
             renderCell: (params) => {
                 return (
                     <div>

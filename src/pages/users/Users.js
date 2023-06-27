@@ -49,8 +49,8 @@ const Users = () => {
     };
 
     const columns = [
-        { field: 'stt', headerName: 'STT', width: 50, sortable: false, align:"center" },
-        { field: 'name', headerName: 'Tên', width: 200, sortable: false },
+        { field: 'stt', headerName: 'STT', width: 50, sortable: false, align:"center", headerAlign: 'center' },
+        { field: 'name', headerName: 'Tên', width: 300, sortable: false },
         { field: 'email', headerName: 'Email', width: 200, sortable: false },
         {
             field: 'phoneNumber',
@@ -58,7 +58,7 @@ const Users = () => {
             width: 110,
             sortable: false,
         },
-        { field: 'isAuthor', headerName: 'Tác giả', width: 100, sortable: false,
+        { field: 'isAuthor', headerName: 'Tác giả', width: 100, sortable: false, headerAlign: 'center', align: "center",
         renderCell: (params) => {
             if(params.row.isAuthor === true)
                 return <CheckBox/>
@@ -66,7 +66,7 @@ const Users = () => {
                 return <CheckBoxOutlineBlank/>
         }
         },
-        { field: 'status', headerName: 'Trạng thái', width: 120, sortable: false },
+        { field: 'status', headerName: 'Trạng thái', width: 120, sortable: false, headerAlign: 'center', align: "center" },
         {
             field: 'Chi tiết',
             headerName: 'Chi tiết',
@@ -74,6 +74,7 @@ const Users = () => {
             sortable: false,
             width: 90,
             align:"center",
+            headerAlign: 'center',
             renderCell: (params) => {
                 return <IconButton sx={{ color: blue }}
                     onClick={(e) => onUserClick(e, params.row)}
@@ -85,10 +86,11 @@ const Users = () => {
         {
             field: 'Action',
             headerName: 'Action',
-            description: 'Xem danh sách đơn hàng.',
+            description: 'Xem danh thống kê tác giả.',
             sortable: false,
             width: 90,
             align:"center",
+            headerAlign: 'center',
             renderCell: (params) => {
                 return (
                     <div>

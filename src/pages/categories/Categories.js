@@ -35,7 +35,7 @@ const Categories = () => {
     };
 
     const columns = [
-        { field: 'stt', headerName: 'STT', width: 100, sortable: false, align:"center" },
+        { field: 'stt', headerName: 'STT', width: 100, sortable: false, align:"center", headerAlign: 'center' },
         { field: 'name', headerName: 'Tên', width: 300, sortable: false },
         { field: 'description', headerName: 'Miêu tả', width: 500, sortable: false },
         {
@@ -45,6 +45,7 @@ const Categories = () => {
             sortable: false,
             width: 150,
             align:"center",
+            headerAlign: 'center',
             renderCell: (params) => {
                 return <IconButton sx={{ color: blue }}
                     onClick={(e) => onEditClick(e, params.row)}
