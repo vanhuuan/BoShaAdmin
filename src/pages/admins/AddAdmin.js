@@ -8,7 +8,7 @@ const AddAdmin = ({ isOpen, handleClose }) => {
 
     const onUpdate = () => {
         var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (!mail.matchAll(mailformat)) {
+        if (!mailformat.test(mail)) {
             NotificationManager.error("Email không đúng định dạng")
             return
         }
